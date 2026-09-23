@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Tenor_Sans, Stack_Sans_Headline } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const tenorSans = Tenor_Sans({
+  variable: "--font-tenor-sans",
   subsets: ["latin"],
+  weight: "400", // Required: Tenor Sans is not a variable font
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const stackSansHeadline = Stack_Sans_Headline({
+  variable: "--font-stack-sans-headline",
   subsets: ["latin"],
 });
 
@@ -21,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${tenorSans.variable} ${stackSansHeadline.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
