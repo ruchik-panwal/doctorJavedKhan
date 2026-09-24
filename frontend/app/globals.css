@@ -17,6 +17,13 @@
   --font-stack: var(--font-stack-sans-headline)
 }
 
+/* Custom Css Grouped Properties */
+@layer{
+  .tenorClass{
+    @apply font-tenor tracking-[-10%];
+  }
+}
+
 /* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
