@@ -36,7 +36,7 @@ export default function HeroSection() {
   return (
     <div
       ref={container}
-      className="relative overflow-hidden flex flex-col justify-between items-center h-screen w-screen border-b border-borderColor"
+      className="relative overflow-hidden flex flex-col justify-between items-center h-screen w-screen border-borderColor"
     >
       <Header />
       <div className="h-full w-full bg-amber-400"></div>
