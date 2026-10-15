@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Tenor_Sans, Stack_Sans_Text } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import ScrollToTop from "@/components/animations/ScrollToTop";
+import BackToTop from "@/components/BackToTop"; // 1. Import it here
 
 const tenorSans = Tenor_Sans({
   variable: "--font-tenor-sans",
@@ -27,7 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${tenorSans.variable} ${StackSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
+        <ScrollToTop />
         <SmoothScroll>{children}</SmoothScroll>
+        
+        {/* 2. Place it globally so it sits on top of all pages */}
+        <BackToTop />
       </body>
     </html>
   );
