@@ -61,11 +61,11 @@ export default function SwiperCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       // Added cursor-none, removed onMouseMove (parent handles it now)
-      className="relative overflow-hidden cursor-none flex-shrink-0 h-full w-[1000px] bg-cyan-700 rounded-2xl flex items-center justify-center text-white text-4xl"
+      className="relative overflow-hidden cursor-none shrink-0 h-full w-250 bg-cyan-700 rounded-2xl flex items-center justify-center text-white text-4xl"
     >
       <div
         ref={gradientRef}
-        className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-black/[0.95] origin-bottom "
+        className="absolute inset-0 z-10 bg-linear-to-b from-transparent to-black/95 origin-bottom "
       ></div>
 
       <svg
