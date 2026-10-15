@@ -1,46 +1,36 @@
-"use client";
-
-import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import Header from "../Header";
-import HeroAbout from "@/components/homePage/HeroAbout";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+"use client"
+import React, { useRef, useEffect } from "react";
+import HeroAbout from "./HeroAbout";
+import Header from "../Header"
+import { useHeroAnimations } from "./HomeAni";
 
 export default function HeroSection() {
-  const container = useRef(null);
+  const sectionRef = useRef(null);
+  const aboutRef = useRef(null);
+  const blueDivRef = useRef(null);
+  const amberDivRef = useRef(null);
 
-  useGSAP(
-    () => {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: container.current,
-            start: "top top",
-            end: "+=100%",
-            scrub: true,
-            pin: true,
-          },
-        })
-        .fromTo(
-          ".hero-about",
-          { yPercent: 100 },
-          { yPercent: 0, ease: "power1.in" }
-        );
-    },
-    { scope: container }
-  );
+  // 1. Force scroll to top on refresh
+  useEffect(() => {
+    if (window.history.scrollRestoration) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
+  useHeroAnimations(sectionRef, aboutRef, blueDivRef, amberDivRef);
 
   return (
-    <div
-      ref={container}
-      className="relative overflow-hidden flex flex-col justify-between items-center h-screen w-screen border-borderColor"
-    >
+    <div ref={sectionRef} className="relative h-screen w-screen overflow-hidden">
       <Header />
-      <div className="h-full w-full bg-amber-400"></div>
-      <HeroAbout />
+      <div className="flex h-full w-full items-center justify-center bg-gray-200 text-5xl">
+        Main Hero Section
+      </div>
+      <HeroAbout 
+        aboutRef={aboutRef} 
+        blueDivRef={blueDivRef} 
+        amberDivRef={amberDivRef} 
+      />
     </div>
   );
 }
