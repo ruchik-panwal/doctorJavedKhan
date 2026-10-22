@@ -21,6 +21,8 @@ export default function HeroAbout({ aboutRef, blueDivRef, amberDivRef }) {
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
+            loading="eager"
+            priority
           />
         </div>
       </div>

@@ -15,6 +15,7 @@ const tenorSans = Tenor_Sans({
 const StackSans = Stack_Sans_Text({
   variable: "--font-stack-sans-text",
   subsets: ["latin"],
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
@@ -28,15 +29,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${tenorSans.variable} ${StackSans.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${tenorSans.variable} ${StackSans.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col">
         <ScrollToTop />
         <SmoothScroll>{children}</SmoothScroll>
-        
+
         {/* 2. Place it globally so it sits on top of all pages */}
         <BackToTop />
-                <ContactIcon />
-        
       </body>
     </html>
   );

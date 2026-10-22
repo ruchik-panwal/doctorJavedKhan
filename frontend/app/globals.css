@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #F3F3EC;
   --foreground: #171717;
-  --borderColor: #b1b1b1;
+  --borderColor: #F3F3EC;
 }
 
 @theme inline {
@@ -61,3 +61,11 @@ html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* Mobile Gallery Slider — progress bar animation */
+@keyframes slideProgress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+
