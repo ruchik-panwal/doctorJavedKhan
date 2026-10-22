@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-// Accept the refs passed down from the parent HeroSection
 export default function HeroAbout({ aboutRef, blueDivRef, amberDivRef }) {
   return (
     <div
@@ -9,14 +8,14 @@ export default function HeroAbout({ aboutRef, blueDivRef, amberDivRef }) {
     >
       <div className="flex flex-col gap-20 tenorClass text-7xl h-full w-full p-20">
         <div>About Me</div>
-        {/* Fixed Tailwind: h-200 -> h-[500px], w-150 -> w-[300px] */}
-        {/* Added 'relative' and 'overflow-hidden' for Next Image, removed bg-blue-600 */}
+        {/* REMOVED: transform-gpu */}
+        {/* APPLIED: h-[500px] w-[300px] */}
         <div
           ref={blueDivRef}
-          className="relative h-175 w-150 transform-gpu overflow-hidden"
+          className="relative h-[500px] w-[300px] overflow-hidden"
         >
           <Image 
-            src="/testImages/portraitImg.png" // TODO: Replace with your actual file name
+            src="/testImages/portraitImg.png" 
             alt="About Image 1"
             fill
             className="object-cover"
@@ -26,10 +25,10 @@ export default function HeroAbout({ aboutRef, blueDivRef, amberDivRef }) {
       </div>
 
       <div className="flex flex-col gap-40 h-full w-full">
-        {/* Fixed Tailwind: h-60, w-200 -> h-[240px] w-[800px] */}
-        <div className="mt-20 h-60 w-200 flex">
-          {/* Fixed Tailwind: w-120 -> w-[400px] */}
-          <div className="p-1 font-stack text-[0.8rem] w-100 font-extralight">
+        {/* APPLIED: h-[240px] w-[800px] */}
+        <div className="mt-20 h-[240px] w-[800px] flex">
+          {/* APPLIED: w-[400px] */}
+          <div className="p-1 font-stack text-[0.8rem] w-[400px] font-extralight">
             OVERVIEW
           </div>
           <div className="tenorClass text-3xl text-black/70">
@@ -39,14 +38,15 @@ export default function HeroAbout({ aboutRef, blueDivRef, amberDivRef }) {
             experience to bear across specialisms, markets and industries.
           </div>
         </div>
-        {/* Fixed Tailwind: h-120, w-200 -> h-[400px] w-[800px] */}
-        {/* Added 'relative' and 'overflow-hidden' for Next Image, removed bg-amber-400 */}
+        
+        {/* REMOVED: transform-gpu */}
+        {/* APPLIED: h-[400px] w-[800px] */}
         <div
           ref={amberDivRef}
-          className="relative mt-20 h-100 w-200 transform-gpu overflow-hidden"
+          className="relative mt-20 h-[400px] w-[800px] overflow-hidden"
         >
           <Image 
-            src="/testImages/landscapeImg.png" // TODO: Replace with your actual file name
+            src="/testImages/landscapeImg.png" 
             alt="About Image 2"
             fill
             className="object-cover"

@@ -9,7 +9,7 @@ export const useWorkAnimations = (containerRef) => {
   useGSAP(() => {
     // Animate columns 2 and 4 (even indices: 1, 3, 5...) moving up faster
     gsap.to(".col-even", {
-      y: -450, 
+      y: -250, 
       ease: "none",
       scrollTrigger: {
         trigger: containerRef.current,

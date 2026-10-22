@@ -2,22 +2,9 @@
 
 import React from "react";
 import Image from "next/image";
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
+import { useMarqueeAnimation } from "../animations/useMarqueAnimation"; // Adjust path as needed
 
-gsap.registerPlugin(useGSAP);
-
-type Testimonial = {
-  id: number;
-  name: string;
-  handle: string;
-  text: string;
-  avatar: string;
-  source: "google";
-};
-
-const topTestimonials: Testimonial[] = [
+const topTestimonials = [
   {
     id: 1,
     name: "Pasquale Vitiello",
@@ -52,7 +39,7 @@ const topTestimonials: Testimonial[] = [
   },
 ];
 
-const bottomTestimonials: Testimonial[] = [
+const bottomTestimonials = [
   {
     ...topTestimonials[2],
     id: 5,
@@ -100,9 +87,9 @@ function GoogleIcon() {
   );
 }
 
-function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+function TestimonialCard({ testimonial }) {
   return (
-    <article className="w-[325px] md:w-[390px] flex-none border border-[#b8b8af] rounded-xl p-4 md:p-5 bg-transparent flex flex-col justify-between min-h-[220px] md:min-h-[250px]">
+    <article className="w-81.25 md:w-97.5 flex-none border border-[#b8b8af] rounded-xl p-4 md:p-5 bg-transparent flex flex-col justify-between min-h-55 md:min-h-75">
       <p className="m-[0_0_18px] font-stack text-[9px] md:text-[13px] leading-[1.55] md:leading-[1.6] font-light wrap-words">
         {testimonial.text}
       </p>
@@ -110,7 +97,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       <div className="flex items-center justify-between gap-2 mt-auto">
         <div className="flex items-center gap-2 min-w-0">
           <Image
-            className="w-[36px] h-[36px] flex-shrink-0 object-cover rounded-full bg-[#e0e0d8]"
+            className="w-9 h-9 shrink-0 object-cover rounded-full bg-[#e0e0d8]"
             src={testimonial.avatar}
             alt="Profile Image"
             width={26}
@@ -118,7 +105,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             loading="lazy"
           />
 
-          <div className="flex flex-col min-w-0 gap-[2px]">
+          <div className="flex flex-col min-w-0 gap-0.5">
             <span className="text-[11px] md:text-[14px] tenorClass leading-[1.2] font-semibold">
               {testimonial.name}
             </span>
@@ -128,7 +115,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           </div>
         </div>
 
-        <span className="flex flex-shrink-0 items-center justify-center">
+        <span className="flex shrink-0 items-center justify-center">
           <GoogleIcon />
         </span>
       </div>
@@ -136,31 +123,9 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   );
 }
 
-type MarqueeRowProps = {
-  testimonials: Testimonial[];
-  direction: "left" | "right";
-};
+function MarqueeRow({ testimonials, direction }) {
+  const trackRef = useMarqueeAnimation(direction);
 
-function MarqueeRow({ testimonials, direction }: MarqueeRowProps) {
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(
-    () => {
-      if (!trackRef.current) return;
-
-      gsap.fromTo(
-        trackRef.current,
-        { xPercent: direction === "left" ? 0 : -50 },
-        {
-          xPercent: direction === "left" ? -50 : 0,
-          duration: 15,
-          ease: "none",
-          repeat: -1,
-        },
-      );
-    },
-    { scope: trackRef, dependencies: [direction] },
-  );
   return (
     <div className="relative w-full overflow-hidden">
       <div ref={trackRef} className="flex w-max">
@@ -180,13 +145,15 @@ function MarqueeRow({ testimonials, direction }: MarqueeRowProps) {
         ))}
       </div>
 
+      {/* Left Edge Fade */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-[#f3f3eb] via-[#f3f3eb]/75 to-transparent backdrop-blur-[2px] md:w-10"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 md:w-62.5 bg-linear-to-r from-[#f3f3eb] via-[#f3f3eb]/80 to-transparent"
       />
+      {/* Right Edge Fade */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-[#f3f3eb] via-[#f3f3eb]/75 to-transparent backdrop-blur-[2px] md:w-10"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 md:w-62.5 bg-linear-to-l from-[#f3f3eb] via-[#f3f3eb]/80 to-transparent"
       />
     </div>
   );
@@ -194,12 +161,9 @@ function MarqueeRow({ testimonials, direction }: MarqueeRowProps) {
 
 export default function WallOfLove() {
   return (
-    <section className="w-full py-[54px] md:py-[64px] bg-[#f3f3eb] text-[#20201d]">
+    <section className="w-full py-13.5 md:py-16 bg-[#f3f3eb] text-[#20201d]">
       <header className="text-center px-5 mb-9">
-        <p className="m-[0_0_8px] text-[#77776f]  text-[10px] font-semibold tracking-[0.12em]">
-          WALL OF LOVE
-        </p>
-        <h2 className="m-0 text-[clamp(23px,2.5vw,32px)] stackClass leading-[1.2] tracking-[-0.045em] font-semibold">
+        <h2 className="m-0 text-[clamp(23px,2.5vw,48px)] tenorClass leading-[1.2] font-semibold">
           Here’s why our patients keep smiling 
         </h2>
       </header>

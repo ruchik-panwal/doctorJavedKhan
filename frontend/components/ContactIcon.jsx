@@ -11,7 +11,7 @@ export default function ContactIcon() {
       target="_blank"
       rel="noopener noreferrer"
       // Added: fixed, bottom-8, right-8, and z-50 to pin it to the bottom right
-      className="fixed bottom-8 right-8 z-50 flex w-12 h-12 items-center justify-center cursor-pointer"
+      className="fixed bottom-8 right-8 z-50 flex w-9.5 h-9.5 items-center justify-center cursor-pointer"
     >
       {/* Outer border */}
       <div
@@ -22,12 +22,12 @@ export default function ContactIcon() {
       {/* Inner animated circle holding the SVG */}
       <div
         ref={innerRef}
-        className="w-10 h-10 flex justify-center items-center rounded-full bg-black will-change-transform relative z-10"
+        className="w-8 h-8 flex justify-center items-center rounded-full bg-black will-change-transform relative z-10"
       >
         <img 
           src="/icons/whatsappIconWhite.svg" 
           alt="WhatsApp" 
-          className="w-6 h-6" 
+          className="w-5 h-5" 
         />
       </div>
     </a>
