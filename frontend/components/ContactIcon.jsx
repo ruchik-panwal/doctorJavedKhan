@@ -22,7 +22,7 @@ export default function ContactIcon() {
       {/* Inner animated circle holding the SVG */}
       <div
         ref={innerRef}
-        className="w-10 h-10 flex justify-center items-center rounded-full bg-[#25D366] will-change-transform relative z-10"
+        className="w-10 h-10 flex justify-center items-center rounded-full bg-black will-change-transform relative z-10"
       >
         <img 
           src="/icons/whatsappIconWhite.svg" 
