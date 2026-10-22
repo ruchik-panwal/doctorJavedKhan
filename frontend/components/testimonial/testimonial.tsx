@@ -102,7 +102,7 @@ function GoogleIcon() {
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <article className="w-[325px] md:w-[390px] flex-none border border-[#b8b8af] rounded-xl p-4 md:p-5 bg-transparent flex flex-col justify-between min-h-[220px] md:min-h-[250px]">
+    <article className="w-[325px] md:w-[390px] flex-none border border-[#b8b8af] rounded-xl p-4 md:p-5 bg-transparent flex flex-col justify-between min-h-[180px] md:min-h-[200px]">
       <p className="m-[0_0_18px] font-stack text-[9px] md:text-[13px] leading-[1.55] md:leading-[1.6] font-light wrap-words">
         {testimonial.text}
       </p>
@@ -110,7 +110,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       <div className="flex items-center justify-between gap-2 mt-auto">
         <div className="flex items-center gap-2 min-w-0">
           <Image
-            className="w-[36px] h-[36px] flex-shrink-0 object-cover rounded-full bg-[#e0e0d8]"
+            className="w-[36px] h-9 flex-shrink-0 object-cover rounded-full bg-[#e0e0d8]"
             src={testimonial.avatar}
             alt="Profile Image"
             width={26}
@@ -128,7 +128,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           </div>
         </div>
 
-        <span className="flex flex-shrink-0 items-center justify-center">
+        <span className="flex shrink-0 items-center justify-center">
           <GoogleIcon />
         </span>
       </div>
@@ -146,47 +146,69 @@ function MarqueeRow({ testimonials, direction }: MarqueeRowProps) {
 
   useGSAP(
     () => {
-      if (!trackRef.current) return;
+      const track = trackRef.current;
+      const firstSet = track?.querySelector<HTMLDivElement>("[data-marquee-set]");
+      if (!track || !firstSet) return;
 
-      gsap.fromTo(
-        trackRef.current,
-        { xPercent: direction === "left" ? 0 : -50 },
-        {
-          xPercent: direction === "left" ? -50 : 0,
-          duration: 15,
+      let tween: gsap.core.Tween | undefined;
+      const animate = () => {
+        const setWidth = firstSet.getBoundingClientRect().width;
+        if (!setWidth) return;
+
+        tween?.kill();
+        gsap.set(track, { x: direction === "right" ? -setWidth : 0 });
+        tween = gsap.to(track, {
+          x: direction === "left" ? -setWidth : 0,
+          duration: setWidth / 80,
           ease: "none",
           repeat: -1,
-        },
-      );
+        });
+      };
+
+      animate();
+      const resizeObserver = new ResizeObserver(animate);
+      resizeObserver.observe(firstSet);
+
+      return () => {
+        resizeObserver.disconnect();
+        tween?.kill();
+      };
     },
-    { scope: trackRef, dependencies: [direction] },
+    { dependencies: [direction] },
   );
+
   return (
     <div className="relative w-full overflow-hidden">
-      <div ref={trackRef} className="flex w-max">
-        {[false, true].map((isDuplicate) => (
-          <div
-            key={isDuplicate ? "duplicate" : "original"}
-            className="flex w-max flex-none gap-4 pr-4"
-            aria-hidden={isDuplicate}
-          >
-            {testimonials.map((testimonial) => (
-              <TestimonialCard
-                key={`${isDuplicate ? "duplicate-" : ""}${testimonial.id}`}
-                testimonial={testimonial}
-              />
-            ))}
-          </div>
-        ))}
+      <div ref={trackRef} className=" mb-1 flex w-max will-change-transform">
+        {/* Original row */}
+        <div data-marquee-set className="flex gap-4 pr-4">
+          {testimonials.map((testimonial) => (
+            <TestimonialCard
+              key={`original-${testimonial.id}`}
+              testimonial={testimonial}
+            />
+          ))}
+        </div>
+
+        {/* Cloned row (for seamless loop) */}
+        <div className="flex gap-4 pr-4">
+          {testimonials.map((testimonial) => (
+            <TestimonialCard
+              key={`clone-${testimonial.id}`}
+              testimonial={testimonial}
+            />
+          ))}
+        </div>
       </div>
 
+      {/* Gradient masks (unchanged) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-[#f3f3eb] via-[#f3f3eb]/75 to-transparent backdrop-blur-[2px] md:w-10"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-linear-to-r from-[#f3f3eb] via-[#f3f3eb]/75 to-transparent backdrop-blur-[2px] md:w-10"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-[#f3f3eb] via-[#f3f3eb]/75 to-transparent backdrop-blur-[2px] md:w-10"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-linear-to-l from-[#f3f3eb] via-[#f3f3eb]/75 to-transparent backdrop-blur-[2px] md:w-10"
       />
     </div>
   );
@@ -200,7 +222,7 @@ export default function WallOfLove() {
           WALL OF LOVE
         </p>
         <h2 className="m-0 text-[clamp(23px,2.5vw,32px)] stackClass leading-[1.2] tracking-[-0.045em] font-semibold">
-          Here’s why our patients keep smiling 
+          Here’s why our patients keep smiling
         </h2>
       </header>
 
