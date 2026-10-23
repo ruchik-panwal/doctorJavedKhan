@@ -3,7 +3,8 @@ import { Tenor_Sans, Stack_Sans_Text } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollToTop from "@/components/animations/ScrollToTop";
-import BackToTop from "@/components/BackToTop"; // 1. Import it here
+import BackToTop from "@/components/BackToTop";
+import SplashScreen from "@/components/SplashScreen";
 
 const tenorSans = Tenor_Sans({
   variable: "--font-tenor-sans",
@@ -32,12 +33,24 @@ export default function RootLayout({
       lang="en"
       className={`${tenorSans.variable} ${StackSans.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="min-h-full flex flex-col">
+        {/* Splash screen — fixed overlay, shows once per session (temporarily commented out) */}
+        {/* <SplashScreen /> */}
         <ScrollToTop />
         <SmoothScroll>{children}</SmoothScroll>
-
-        {/* 2. Place it globally so it sits on top of all pages */}
-        {/* <BackToTop /> */}
+        <BackToTop />
       </body>
     </html>
   );

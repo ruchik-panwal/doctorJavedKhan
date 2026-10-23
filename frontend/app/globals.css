@@ -13,18 +13,27 @@
   --color-borderColor: var(--borderColor);
 
   /* Fonts */
-  --font-tenor: var(--font-tenor-sans);
+  --font-tenor: "Tenor Sans", var(--font-tenor-sans);
   --font-stack: var(--font-stack-sans-text);
 }
 
-/* Custom Css Grouped Properties */
-@layer {
-  .tenorClass {
-    @apply font-tenor tracking-[-10%];
-  }
-  .stackClass {
-    @apply font-stack tracking-[-5%];
-  }
+@font-face {
+  font-family: "Tenor Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/TenorSans.ttf") format("truetype");
+}
+
+/* Custom Font Classes */
+.tenorClass {
+  font-family: "Tenor Sans", var(--font-tenor-sans), Georgia, serif;
+  letter-spacing: -0.05em;
+}
+
+.stackClass {
+  font-family: var(--font-stack-sans-text), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 /* @media (prefers-color-scheme: dark) {

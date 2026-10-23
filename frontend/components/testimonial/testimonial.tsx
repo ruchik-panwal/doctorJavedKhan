@@ -22,7 +22,7 @@ const topTestimonials: Testimonial[] = [
     id: 1,
     name: "Pasquale Vitiello",
     handle: "@pasqualevitiello",
-    text: "Dr. Khan is very precise in his work. I had extraction done and the procedure was completed quickly and with no discomfort or pain afterward. I'm very impressed with how modern and high-tech the office is and can tell those involved in the latest technology which made the process very smooth and organised. Would recommend 100%.",
+    text: "Dr. Khan is very precise in his work. I had extraction done and the procedure was completed quickly and with no discomfort or pain afterward.",
     avatar: "/testimonialImages/pfp1.jpg",
     source: "google",
   },
@@ -46,7 +46,7 @@ const topTestimonials: Testimonial[] = [
     id: 4,
     name: "Arshed Patel",
     handle: "@arshedpatel",
-    text: "Dr. Javed Sir is very professional and polite. He explained my dental issue clearly and the treatment was smooth and painless. Excellent service — the doctor is very patient and makes you feel comfortable during the treatment. Thanks a lot.",
+    text: "Dr. Javed Sir is very professional and polite. He explained my dental issue clearly and the treatment was smooth and painless. Excellent service",
     avatar: "/testimonialImages/pfp2.jpg",
     source: "google",
   },
@@ -102,7 +102,7 @@ function GoogleIcon() {
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <article className="w-[325px] md:w-[390px] flex-none border border-[#b8b8af] rounded-xl p-4 md:p-5 bg-transparent flex flex-col justify-between min-h-[180px] md:min-h-[200px]">
+    <article className="w-[325px] md:w-[390px] flex-none border border-[#b8b8af] rounded-xl p-4 md:p-5 bg-transparent flex flex-col justify-between min-h-[200px] md:min-h-[200px]">
       <p className="m-[0_0_18px] font-stack text-[9px] md:text-[13px] leading-[1.55] md:leading-[1.6] font-light wrap-words">
         {testimonial.text}
       </p>
@@ -147,7 +147,8 @@ function MarqueeRow({ testimonials, direction }: MarqueeRowProps) {
   useGSAP(
     () => {
       const track = trackRef.current;
-      const firstSet = track?.querySelector<HTMLDivElement>("[data-marquee-set]");
+      const firstSet =
+        track?.querySelector<HTMLDivElement>("[data-marquee-set]");
       if (!track || !firstSet) return;
 
       let tween: gsap.core.Tween | undefined;
@@ -221,7 +222,7 @@ export default function WallOfLove() {
         <p className="m-[0_0_8px] text-[#77776f]  text-[10px] font-semibold tracking-[0.12em]">
           WALL OF LOVE
         </p>
-        <h2 className="m-0 text-[clamp(23px,2.5vw,32px)] stackClass leading-[1.2] tracking-[-0.045em] font-semibold">
+        <h2 className="m-0 text-[clamp(23px,2.5vw,32px)] tenorClass uppercase leading-[1.2] tracking-[-0.045em] font-semibold">
           Here’s why our patients keep smiling
         </h2>
       </header>

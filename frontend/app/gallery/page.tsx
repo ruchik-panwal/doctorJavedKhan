@@ -12,6 +12,7 @@ export default function GalleryPage() {
 
       {/* ── Hero / Intro ── full-viewport below header ── */}
       <section className="relative flex flex-1 flex-col items-center justify-center px-5 text-center min-h-svh">
+        {/* @ts-expect-error SplitText is from JavaScript component */}
         <SplitText
           tag="h1"
           className="font-tenor max-w-[660px] text-[clamp(1.25rem,3.3vw,2.5rem)] leading-[1.3]"
