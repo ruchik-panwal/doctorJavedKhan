@@ -46,8 +46,8 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        {/* Splash screen — fixed overlay, shows once per session (temporarily commented out) */}
-        {/* <SplashScreen /> */}
+        {/* Splash screen — fixed overlay, runs animated SVG logo on site entry */}
+        <SplashScreen />
         <ScrollToTop />
         <SmoothScroll>{children}</SmoothScroll>
         <BackToTop />

@@ -3,8 +3,9 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Header from "../Header";
 import gsap from "gsap";
+import { isSplashPending } from "@/components/SplashScreen";
 
-// Module-level flag: prevents re-triggering during SPA route changes (Home -> Gallery -> Home)
+// Module-level flag: prevents re-playing the hero intro during SPA route changes (Home -> Gallery -> Home)
 let hasHeroAnimated = false;
 
 export default function HeroSection() {
@@ -19,48 +20,75 @@ export default function HeroSection() {
     window.scrollTo(0, 0);
   }, []);
 
-  // 2. Sequenced load animation: hero image light fade-in -> blur text animation
+  // 2. Sequenced intro: doctor image fades in -> headline words blur-resolve one by one
   useEffect(() => {
-    if (hasHeroAnimated) {
-      // If already animated in this SPA session, show immediately without re-animating
-      if (imageRef.current) {
-        gsap.set(imageRef.current, { opacity: 1 });
-      }
-      if (wordsRef.current?.length) {
-        gsap.set(wordsRef.current, { opacity: 1, filter: "blur(0px)" });
-      }
+    const image = imageRef.current;
+    const words = wordsRef.current.filter(Boolean);
+    if (!image || words.length === 0) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Already played in this SPA session, or user prefers reduced motion: show final state
+    if (hasHeroAnimated || reducedMotion) {
+      hasHeroAnimated = true;
+      gsap.set(image, { opacity: 1 });
+      gsap.set(words, { opacity: 1, filter: "blur(0px)" });
       return;
     }
 
-    // Mark as animated for in-app navigation
-    hasHeroAnimated = true;
+    let tl;
 
-    if (!imageRef.current || !wordsRef.current || wordsRef.current.length === 0) return;
+    const startHeroIntro = () => {
+      if (hasHeroAnimated) return;
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.1 });
-
-      // Step 1: Light fade-in for the doctor hero image
-      tl.to(imageRef.current, {
-        opacity: 1,
-        duration: 1.2,
-        ease: "power2.out",
-      })
-      // Step 2: Continue with the staggered blur text animation for the headline words
-      .to(
-        wordsRef.current,
-        {
-          opacity: 1,
-          filter: "blur(0px)",
-          duration: 1.4,
-          stagger: 0.45,
-          ease: "power2.out",
+      tl = gsap.timeline({
+        delay: 0.1,
+        onComplete: () => {
+          hasHeroAnimated = true;
         },
-        "-=0.4"
-      );
-    });
+      });
 
-    return () => ctx.revert();
+      tl
+        // Step 1: Smooth, slow fade-in of the doctor image
+        .fromTo(
+          image,
+          { opacity: 0 },
+          { opacity: 1, duration: 1.4, ease: "power2.out" }
+        )
+        // Step 2: Headline words resolve from blur to sharp, one after another
+        .fromTo(
+          words,
+          { opacity: 0, filter: "blur(14px)" },
+          {
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 1.6,
+            stagger: 0.5,
+            ease: "power2.out",
+          },
+          "-=0.5"
+        );
+    };
+
+    if (isSplashPending()) {
+      // Splash screen is playing: wait until its fade begins
+      window.addEventListener("splashFadeStart", startHeroIntro, { once: true });
+
+      // Safety timeout: reveal hero if splash event doesn't fire within 4s
+      const fallbackTimer = setTimeout(startHeroIntro, 4000);
+
+      return () => {
+        window.removeEventListener("splashFadeStart", startHeroIntro);
+        clearTimeout(fallbackTimer);
+        if (tl) tl.kill();
+      };
+    } else {
+      // Splash already ran or not pending: start intro immediately
+      startHeroIntro();
+      return () => {
+        if (tl) tl.kill();
+      };
+    }
   }, []);
 
   const headlineWords = ["Dr.", "Javed", "Khan"];
@@ -68,7 +96,7 @@ export default function HeroSection() {
   return (
     <div className="relative h-screen w-full flex flex-col overflow-hidden bg-background">
       <Header />
-      
+
       {/* Main Hero Container */}
       <section className="relative flex-1 w-full overflow-hidden flex items-end justify-center select-none bg-[#141517]">
         {/* Background Gradient Image */}
@@ -82,16 +110,17 @@ export default function HeroSection() {
             sizes="100vw"
           />
           {/* Subtle vignette / depth glow overlay */}
-          <div 
+          <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: "radial-gradient(ellipse 85% 65% at 50% 90%, rgba(55, 57, 60, 0.35) 0%, rgba(20, 21, 23, 0.2) 55%, rgba(14, 15, 17, 0.7) 100%)",
+              background:
+                "radial-gradient(ellipse 85% 65% at 50% 90%, rgba(55, 57, 60, 0.35) 0%, rgba(20, 21, 23, 0.2) 55%, rgba(14, 15, 17, 0.7) 100%)",
             }}
           />
         </div>
 
         {/* Doctor Image */}
-        <div 
+        <div
           ref={imageRef}
           className="relative z-10 w-full h-full flex items-end justify-center pointer-events-none"
           style={{ opacity: 0, willChange: "opacity" }}
@@ -110,7 +139,7 @@ export default function HeroSection() {
 
         {/* Big Bold Headline: Dr. Javed Khan */}
         <div className="absolute bottom-[1.5%] sm:bottom-[2%] md:bottom-[2.2%] left-0 right-0 z-20 flex justify-center items-center pointer-events-none px-2 sm:px-4">
-          <h1 
+          <h1
             className="tenorClass text-center whitespace-nowrap select-none font-bold"
             style={{
               fontFamily: "'Tenor Sans', var(--font-tenor-sans), Georgia, serif",
@@ -126,12 +155,12 @@ export default function HeroSection() {
                 ref={(el) => (wordsRef.current[index] = el)}
                 className="inline-block"
                 style={{
-                  background: "linear-gradient(180deg, #FFFFFF 0%, #EAEAEF 52%, #B2B2BA 100%)",
+                  background:
+                    "linear-gradient(180deg, #FFFFFF 0%, #EAEAEF 52%, #B2B2BA 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   marginRight: index < headlineWords.length - 1 ? "0.22em" : "0",
-                  opacity: 0,
-                  filter: "blur(14px)",
+                  opacity: 0, // GSAP takes over; kept so nothing flashes before the effect runs
                   willChange: "filter, opacity",
                 }}
               >

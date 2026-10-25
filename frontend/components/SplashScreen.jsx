@@ -1,47 +1,31 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-// Module-level flag: if splash already ran in this JS lifetime, skip it
+// Module-level flag: persists across client-side route changes, resets on page reload
 let hasSplashShown = false;
 
+export const isSplashPending = () => {
+  return !hasSplashShown;
+};
+
 export default function SplashScreen() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() => !hasSplashShown);
   const [fading, setFading] = useState(false);
   const fadeTimer = useRef(null);
   const unmountTimer = useRef(null);
 
   useEffect(() => {
-    // Only runs client-side, after hydration
-    const alreadyShown =
-      hasSplashShown ||
-      (() => {
-        try {
-          return sessionStorage.getItem("splash_shown") === "true";
-        } catch (_) {
-          return false;
-        }
-      })();
-
-    if (alreadyShown) {
-      // Notify any listeners that splash was skipped so they can proceed immediately
+    if (hasSplashShown) {
       window.dispatchEvent(new CustomEvent("splashFadeStart"));
       return;
     }
 
-    // Mark as shown in this session
-    hasSplashShown = true;
-    try {
-      sessionStorage.setItem("splash_shown", "true");
-    } catch (_) {}
-
-    // Show the splash overlay
-    setVisible(true);
-
     const ANIMATION_DURATION = 3100; // ms — SVG logo finishes at ~3.0s
-    const FADE_DURATION = 800;       // ms — smooth fade-out (under 1s)
+    const FADE_DURATION = 800;       // ms — smooth fade-out
 
     // After SVG finishes, start fade-out and trigger hero section entrance simultaneously
     fadeTimer.current = setTimeout(() => {
+      hasSplashShown = true;
       setFading(true);
       window.dispatchEvent(new CustomEvent("splashFadeStart"));
     }, ANIMATION_DURATION);
