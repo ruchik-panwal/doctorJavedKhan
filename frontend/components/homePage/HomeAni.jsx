@@ -7,43 +7,44 @@ import { useGSAP } from "@gsap/react";
 // Register ScrollTrigger so GSAP knows how to use it
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * 1. Hero Scroll Animations
- * Handles pinning the hero section and sliding/clipping the images into view.
- */
-export const useHeroAnimations = (sectionRef, aboutRef, blueDivRef, amberDivRef) => {
+// 1. Standalone About Section Animations — top-to-bottom wipe reveal (one-time)
+export const useAboutAnimations = (aboutRef, blueDivRef, amberDivRef) => {
   useGSAP(() => {
-    if (!sectionRef.current || !aboutRef.current || !blueDivRef.current || !amberDivRef.current) return;
+    if (!aboutRef?.current || !blueDivRef?.current || !amberDivRef?.current) return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=150%",
-        scrub: true,
-        pin: true,
+    // inset(top right bottom left)
+    // Start: bottom=100% → visible height is 0, anchored at top → image is hidden
+    // End:   bottom=0%  → fully visible, wipe went top → bottom ✓
+    gsap.set(blueDivRef.current,  { clipPath: "inset(0% 0% 100% 0%)" });
+    gsap.set(amberDivRef.current, { clipPath: "inset(0% 0% 100% 0%)" });
+
+    ScrollTrigger.create({
+      trigger: aboutRef.current,
+      // "top 60%" = section top enters at 60% from viewport top = 40% of section is visible
+      start: "top 60%",
+      once: true,   // fire once, never reset — images stay revealed after first play
+      onEnter: () => {
+        // javed2 — main portrait, reveals top → bottom in 1s
+        gsap.to(blueDivRef.current, {
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 2.5,
+          ease: "power2.out",
+        });
+        // javed3 — secondary image, slight stagger
+        gsap.to(amberDivRef.current, {
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 2.5,
+          ease: "power2.out",
+          delay: 0.2,
+        });
       },
     });
 
-    tl.fromTo(
-      aboutRef.current,
-      { yPercent: 100 },
-      { yPercent: 0, ease: "none" }
-    )
-    .fromTo(blueDivRef.current, 
-      // rotation: 0.01 forces Firefox to anti-alias the clip-path smoothly 
-      // without relying on buggy transform-gpu rendering
-      { clipPath: "inset(0% 0% 100% 0%)", rotation: 0.01 }, 
-      { clipPath: "inset(0% 0% 0% 0%)", rotation: 0, ease: "power2.out" }
-    )
-    .fromTo(amberDivRef.current, 
-      { clipPath: "inset(0% 0% 100% 0%)", rotation: 0.01 },
-      { clipPath: "inset(0% 0% 0% 0%)", rotation: 0, ease: "power2.out" }, 
-      "<0.2" // Starts slightly before the previous animation finishes
-    );
-
-  }, { scope: sectionRef });
+  }, { scope: aboutRef });
 };
+
+// Kept for backward compatibility
+export const useHeroAnimations = () => {};
 
 /**
  * 2. Swiper Drag Animation

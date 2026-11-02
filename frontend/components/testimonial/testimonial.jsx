@@ -9,7 +9,7 @@ const topTestimonials = [
     id: 1,
     name: "Pasquale Vitiello",
     handle: "@pasqualevitiello",
-    text: "Dr. Khan is very precise in his work. I had extraction done and the procedure was completed quickly and with no discomfort or pain afterward. I'm very impressed with how modern and high-tech the office is and can tell those involved in the latest technology which made the process very smooth and organised. Would recommend 100%.",
+    text: "Dr. Khan is very precise in his work. I had extraction done and the procedure was completed quickly and with no discomfort or pain afterward.",
     avatar: "/testimonialImages/pfp1.jpg",
     source: "google",
   },
@@ -33,7 +33,7 @@ const topTestimonials = [
     id: 4,
     name: "Arshed Patel",
     handle: "@arshedpatel",
-    text: "Dr. Javed Sir is very professional and polite. He explained my dental issue clearly and the treatment was smooth and painless. Excellent service — the doctor is very patient and makes you feel comfortable during the treatment. Thanks a lot.",
+    text: "Dr. Javed Sir is very professional and polite. He explained my dental issue clearly and the treatment was smooth and painless. Excellent service",
     avatar: "/testimonialImages/pfp2.jpg",
     source: "google",
   },
@@ -89,7 +89,7 @@ function GoogleIcon() {
 
 function TestimonialCard({ testimonial }) {
   return (
-    <article className="w-81.25 md:w-97.5 flex-none border border-[#b8b8af] rounded-xl p-4 md:p-5 bg-transparent flex flex-col justify-between min-h-55 md:min-h-75">
+    <article className="w-[325px] md:w-[390px] flex-none border border-[#b8b8af] rounded-xl p-4 md:p-5 bg-transparent flex flex-col justify-between min-h-[200px] md:min-h-[200px]">
       <p className="m-[0_0_18px] font-stack text-[9px] md:text-[13px] leading-[1.55] md:leading-[1.6] font-light wrap-words">
         {testimonial.text}
       </p>
@@ -123,8 +123,47 @@ function TestimonialCard({ testimonial }) {
   );
 }
 
-function MarqueeRow({ testimonials, direction }) {
-  const trackRef = useMarqueeAnimation(direction);
+type MarqueeRowProps = {
+  testimonials: Testimonial[];
+  direction: "left" | "right";
+};
+
+function MarqueeRow({ testimonials, direction }: MarqueeRowProps) {
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const track = trackRef.current;
+      const firstSet =
+        track?.querySelector<HTMLDivElement>("[data-marquee-set]");
+      if (!track || !firstSet) return;
+
+      let tween: gsap.core.Tween | undefined;
+      const animate = () => {
+        const setWidth = firstSet.getBoundingClientRect().width;
+        if (!setWidth) return;
+
+        tween?.kill();
+        gsap.set(track, { x: direction === "right" ? -setWidth : 0 });
+        tween = gsap.to(track, {
+          x: direction === "left" ? -setWidth : 0,
+          duration: setWidth / 80,
+          ease: "none",
+          repeat: -1,
+        });
+      };
+
+      animate();
+      const resizeObserver = new ResizeObserver(animate);
+      resizeObserver.observe(firstSet);
+
+      return () => {
+        resizeObserver.disconnect();
+        tween?.kill();
+      };
+    },
+    { dependencies: [direction] },
+  );
 
   return (
     <div className="relative w-full overflow-hidden">
@@ -168,8 +207,11 @@ export default function WallOfLove() {
   return (
     <section className="w-full py-13.5 md:py-16 bg-[#f3f3eb] text-[#20201d]">
       <header className="text-center px-5 mb-9">
-        <h2 className="m-0 text-[clamp(23px,2.5vw,48px)] tenorClass leading-[1.2] font-semibold">
-          Here’s why our patients keep smiling 
+        <p className="m-[0_0_8px] text-[#77776f]  text-[10px] font-semibold tracking-[0.12em]">
+          WALL OF LOVE
+        </p>
+        <h2 className="m-0 text-[clamp(23px,2.5vw,32px)] tenorClass uppercase leading-[1.2] tracking-[-0.045em] font-semibold">
+          Here’s why our patients keep smiling
         </h2>
       </header>
 

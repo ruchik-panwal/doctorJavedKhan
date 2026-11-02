@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -80,6 +80,9 @@ const SLIDES = [
 ];
 
 const TOTAL = SLIDES.length;
+
+// Time to hold each slide before auto-advancing (milliseconds)
+const AUTO_ADVANCE_DELAY = 3000;
 
 interface GalleryImageSlotProps {
   currentSrc: string;
@@ -204,6 +207,26 @@ const GalleryNewSection = () => {
     },
     [activeIndex],
   );
+
+  // Auto-advance loop: once a transition finishes, wait 3 seconds, then run the same
+  // transition the Next button uses. The timer resets whenever activeIndex changes,
+  // so a manual click also restarts the 3-second wait.
+  useEffect(() => {
+    // Don't schedule while a transition is running
+    if (nextIndex !== null) return;
+
+    // Respect users who have reduced motion enabled
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reducedMotion) return;
+
+    const timer = window.setTimeout(() => {
+      navigate(1);
+    }, AUTO_ADVANCE_DELAY);
+
+    return () => window.clearTimeout(timer);
+  }, [activeIndex, nextIndex, navigate]);
 
   useGSAP(
     () => {
@@ -433,7 +456,7 @@ const GalleryNewSection = () => {
         </div>
 
         {/* Bottom Small Yellow Bar -> "Next" Button */}
-        <div className="absolute bottom-[5%] right-10 w-[45%] min-h-[5%] flex items-center justify-end">
+        {/* <div className="absolute bottom-[5%] right-10 w-[45%] min-h-[5%] flex items-center justify-end">
           <button
             onClick={() => navigate(1)}
             aria-label="Next slide"
@@ -456,7 +479,7 @@ const GalleryNewSection = () => {
               />
             </svg>
           </button>
-        </div>
+        </div> */}
       </div>
     </section>
   );
