@@ -4,6 +4,8 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollToTop from "@/components/animations/ScrollToTop";
 import BackToTop from "@/components/BackToTop"; // 1. Import it here
+import ContactIcon from "@/components/ContactIcon"
+import SplashScreen from "@/components/SplashScreen";
 
 const tenorSans = Tenor_Sans({
   variable: "--font-tenor-sans",
@@ -51,7 +53,8 @@ export default function RootLayout({
         <SmoothScroll>{children}</SmoothScroll>
 
         {/* 2. Place it globally so it sits on top of all pages */}
-        {/* <BackToTop /> */}
+        <BackToTop />
+        <BackToTop />
       </body>
     </html>
   );
