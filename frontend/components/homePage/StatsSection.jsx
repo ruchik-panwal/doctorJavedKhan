@@ -1,10 +1,7 @@
 "use client";
 import React, { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { setupStatsReveal } from "../animations/statAnimation";
 
 const StatsSection = () => {
   const containerRef = useRef(null);
@@ -18,41 +15,7 @@ const StatsSection = () => {
 
   useGSAP(
     () => {
-      const rows = rowsRef.current.filter(Boolean);
-      if (!rows.length) return;
-
-      const reducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      if (reducedMotion) {
-        gsap.set(rows, { opacity: 1, filter: "blur(0px)" });
-        return;
-      }
-
-      // Initial state: hidden and blurred
-      gsap.set(rows, {
-        opacity: 0,
-        filter: "blur(14px)",
-        y: 16, // subtle upward drift accompanying the blur
-      });
-
-      // ScrollTrigger: fires once and never repeats on scroll up/down
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: "top 75%",
-        once: true,
-        onEnter: () => {
-          gsap.to(rows, {
-            opacity: 1,
-            filter: "blur(0px)",
-            y: 0,
-            duration: 1, // 1 second fade/blur per level
-            stagger: 0.4, // level-by-level reveal
-            ease: "power2.out",
-          });
-        },
-      });
+      setupStatsReveal(containerRef.current, rowsRef.current);
     },
     { scope: containerRef }
   );

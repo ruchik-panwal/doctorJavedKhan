@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import Image from "next/image";
-import { useAboutAnimations } from "./HomeAni";
+import { useAboutAnimations } from "../animations/HomeAni";
 
 export default function HeroAbout() {
   const aboutRef = useRef(null);

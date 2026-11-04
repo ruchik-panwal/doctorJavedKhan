@@ -1,9 +1,10 @@
 "use client";
+
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Header from "../Header";
-import gsap from "gsap";
 import { isSplashPending } from "@/components/SplashScreen";
+import { setHeroFinalState, playHeroIntro } from "../animations/HeroSectionAni";
 
 // Module-level flag: prevents re-playing the hero intro during SPA route changes (Home -> Gallery -> Home)
 let hasHeroAnimated = false;
@@ -20,7 +21,7 @@ export default function HeroSection() {
     window.scrollTo(0, 0);
   }, []);
 
-  // 2. Sequenced intro: doctor image fades in -> headline words blur-resolve one by one
+  // 2. Sequenced intro
   useEffect(() => {
     const image = imageRef.current;
     const words = wordsRef.current.filter(Boolean);
@@ -31,8 +32,7 @@ export default function HeroSection() {
     // Already played in this SPA session, or user prefers reduced motion: show final state
     if (hasHeroAnimated || reducedMotion) {
       hasHeroAnimated = true;
-      gsap.set(image, { opacity: 1 });
-      gsap.set(words, { opacity: 1, filter: "blur(0px)" });
+      setHeroFinalState(image, words);
       return;
     }
 
@@ -40,34 +40,10 @@ export default function HeroSection() {
 
     const startHeroIntro = () => {
       if (hasHeroAnimated) return;
-
-      tl = gsap.timeline({
-        delay: 0.1,
-        onComplete: () => {
-          hasHeroAnimated = true;
-        },
+      
+      tl = playHeroIntro(image, words, () => {
+        hasHeroAnimated = true;
       });
-
-      tl
-        // Step 1: Smooth, slow fade-in of the doctor image
-        .fromTo(
-          image,
-          { opacity: 0 },
-          { opacity: 1, duration: 1.4, ease: "power2.out" }
-        )
-        // Step 2: Headline words resolve from blur to sharp, one after another
-        .fromTo(
-          words,
-          { opacity: 0, filter: "blur(14px)" },
-          {
-            opacity: 1,
-            filter: "blur(0px)",
-            duration: 1.6,
-            stagger: 0.5,
-            ease: "power2.out",
-          },
-          "-=0.5"
-        );
     };
 
     if (isSplashPending()) {
@@ -160,7 +136,7 @@ export default function HeroSection() {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   marginRight: index < headlineWords.length - 1 ? "0.22em" : "0",
-                  opacity: 0, // GSAP takes over; kept so nothing flashes before the effect runs
+                  opacity: 0, // GSAP takes over
                   willChange: "filter, opacity",
                 }}
               >
