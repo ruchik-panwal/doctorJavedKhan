@@ -40,24 +40,3 @@ export const useAboutAnimations = (aboutRef, blueDivRef, amberDivRef) => {
   }, { scope: aboutRef });
 };
 
-// Kept for backward compatibility
-export const useHeroAnimations = () => {};
-
-// 2. The New Swiper Animation Hook
-export const useSwiperAnimation = (wrapperRef, currentX, targetX) => {
-  useGSAP(() => {
-    if (!wrapperRef.current) return;
-
-    const updateSmoothDrag = () => {
-      // Lerp formula: smoothly ease 'currentX' closer to 'targetX'
-      currentX.current += (targetX.current - currentX.current) * 0.1;
-      
-      gsap.set(wrapperRef.current, { x: currentX.current });
-    };
-
-    gsap.ticker.add(updateSmoothDrag);
-    
-    // Cleanup on unmount
-    return () => gsap.ticker.remove(updateSmoothDrag);
-  });
-};
