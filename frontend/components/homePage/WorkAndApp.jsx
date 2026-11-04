@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
-import { useSwiperAnimation } from "../animations/HomeAni";
+import { useSwiperAnimation } from "../animations/homePageAni";
 import { animateSwiperCard, resetSwiperCursor } from "../animations/cursorAni";
 import SwiperCard from "./SwiperCard";
 
