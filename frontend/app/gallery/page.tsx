@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import { HeaderSpacer } from "@/components/Header";
 import CircularText from "@/components/CircularText";
 import GalleryNewSection from "@/components/gallery/GalleryNewSection";
 import GalleryMobileSlider from "@/components/gallery/GalleryMobileSlider";
@@ -6,9 +6,9 @@ import SplitText from "@/components/SplitText";
 
 export default function GalleryPage() {
   return (
-    <main className="flex min-h-svh flex-col">
-      {/* ── Fixed Header sits above everything ── */}
-      <Header />
+    <main className="bg-background text-foreground">
+      {/* ── Fixed Header sits above in layout, spacer maintains scroll clearance ── */}
+      <HeaderSpacer />
 
       {/* ── Hero / Intro ── full-viewport below header ── */}
       <section className="relative flex flex-1 flex-col items-center justify-center px-5 text-center min-h-svh">

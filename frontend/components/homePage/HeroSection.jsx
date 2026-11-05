@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import Header from "../Header";
+import { HeaderSpacer } from "../Header";
 import gsap from "gsap";
 import { isSplashPending } from "@/components/SplashScreen";
 
@@ -95,7 +95,7 @@ export default function HeroSection() {
 
   return (
     <div className="relative h-screen w-full flex flex-col overflow-hidden bg-background">
-      <Header />
+      <HeaderSpacer />
 
       {/* Main Hero Container */}
       <section className="relative flex-1 w-full overflow-hidden flex items-end justify-center select-none bg-[#141517]">
