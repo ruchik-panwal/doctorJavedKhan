@@ -9,7 +9,7 @@ const Logo = ({ inAnimation, outAnimation, closeMenu }) => (
   <Link
     href="/"
     onClick={closeMenu}
-    className="relative block overflow-hidden tenorClass text-2xl md:text-3xl text-foreground z-50"
+    className="relative block overflow-hidden tenorClass text-[1.1rem] text-foreground z-50"
   >
     <span className="orig-text block">Javed Khan</span>
     <span className="duplicate-text absolute left-0 top-0 block w-full h-full">
@@ -86,7 +86,7 @@ export default function Header() {
       <nav
         className={`${
           isMenuOpen ? "flex" : "hidden"
-        } md:flex flex-col md:flex-row absolute md:static top-full left-0 w-full md:w-auto bg-background md:bg-transparent shadow-lg md:shadow-none p-5 md:p-0 gap-5 md:gap-5 text-lg md:text-xl text-foreground items-start md:items-center stackClass font-light z-40`}
+        } md:flex flex-col md:flex-row absolute md:static top-full left-0 w-full md:w-auto bg-background md:bg-transparent shadow-lg md:shadow-none p-3 md:p-0 gap-5 md:gap-5 text-[0.8rem] text-foreground items-start md:items-center stackClass font-light z-40`}
       >
         <AnimatedButton onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
           Royal Dental Care
