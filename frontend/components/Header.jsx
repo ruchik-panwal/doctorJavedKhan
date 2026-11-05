@@ -97,10 +97,6 @@ export default function Header() {
         <AnimatedLink href="/gallery" onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
           Gallery
         </AnimatedLink>
-
-        <AnimatedLink href="/about" onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
-          About
-        </AnimatedLink>
       </nav>
     </header>
   );
