@@ -1,13 +1,13 @@
 import HeroSection from "@/components/homePage/HeroSection";
-import HeroAbout from "@/components/homePage/HeroAbout";
+import HomeAbout from "@/components/homePage/HomeAbout";
 import StatsSection from "@/components/homePage/StatsSection";
-import WallOfLove from "@/components/testimonial/testimonial";
+import WallOfLove from "@/components/homePage/testimonial";
 
 export default function Home() {
   return (
     <main>
       <HeroSection />
-      <HeroAbout />
+      <HomeAbout />
       <StatsSection />
       <WallOfLove />
     </main>

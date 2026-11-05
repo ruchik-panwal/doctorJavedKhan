@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import Image from "next/image";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { testimonialsAni } from "../animations/homePage/testimonialsAni"; // Adjust the import path as needed
 
 const topTestimonials = [
   {
@@ -90,8 +89,9 @@ function GoogleIcon() {
 
 function TestimonialCard({ testimonial }) {
   return (
-    <article className="w-[325px] md:w-[390px] flex-none border border-[#b8b8af] rounded-xl p-4 md:p-5 bg-transparent flex flex-col justify-between min-h-[200px] md:min-h-[200px]">
-      <p className="m-[0_0_18px] font-stack text-[9px] md:text-[13px] leading-[1.55] md:leading-[1.6] font-light wrap-words">
+    <article className="w-81.25 md:w-97.5 flex-none border border-[#b8b8af] rounded-xl p-4 md:p-5 bg-transparent flex flex-col justify-between min-h-70 md:min-h-70">
+      {/* Increased mobile text from 9px to 14px, and desktop to 15px */}
+      <p className="m-[0_0_18px] font-stack text-[14px] md:text-[15px] leading-[1.55] md:leading-[1.6] font-light wrap-words">
         {testimonial.text}
       </p>
 
@@ -107,10 +107,12 @@ function TestimonialCard({ testimonial }) {
           />
 
           <div className="flex flex-col min-w-0 gap-0.5">
-            <span className="text-[11px] md:text-[14px] tenorClass leading-[1.2] font-semibold">
+            {/* Increased name text from 11px to 15px on mobile */}
+            <span className="text-[15px] md:text-[16px] tenorClass leading-[1.2] font-semibold">
               {testimonial.name}
             </span>
-            <span className="tenorClass text-[#77776f] text-[7px] md:text-[10px] leading-[1.2] overflow-hidden text-ellipsis whitespace-nowrap">
+            {/* Increased handle text from 7px to 12px on mobile */}
+            <span className="tenorClass text-[#77776f] text-[12px] md:text-[13px] leading-[1.2] overflow-hidden text-ellipsis whitespace-nowrap">
               {testimonial.handle}
             </span>
           </div>
@@ -125,41 +127,7 @@ function TestimonialCard({ testimonial }) {
 }
 
 function MarqueeRow({ testimonials, direction }) {
-  const trackRef = useRef(null);
-
-  useGSAP(
-    () => {
-      const track = trackRef.current;
-      const firstSet = track?.querySelector("[data-marquee-set]");
-      if (!track || !firstSet) return;
-
-      let tween;
-      
-      const animate = () => {
-        const setWidth = firstSet.getBoundingClientRect().width;
-        if (!setWidth) return;
-
-        if (tween) tween.kill();
-        gsap.set(track, { x: direction === "right" ? -setWidth : 0 });
-        tween = gsap.to(track, {
-          x: direction === "left" ? -setWidth : 0,
-          duration: setWidth / 80,
-          ease: "none",
-          repeat: -1,
-        });
-      };
-
-      animate();
-      const resizeObserver = new ResizeObserver(animate);
-      resizeObserver.observe(firstSet);
-
-      return () => {
-        resizeObserver.disconnect();
-        if (tween) tween.kill();
-      };
-    },
-    { dependencies: [direction] }
-  );
+  const trackRef = testimonialsAni(direction);
 
   return (
     <div className="relative w-full overflow-hidden">
@@ -185,11 +153,11 @@ function MarqueeRow({ testimonials, direction }) {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 md:w-[250px] bg-linear-to-r from-[#f3f3eb] via-[#f3f3eb]/80 to-transparent"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 md:w-62.5 bg-linear-to-r from-[#f3f3eb] via-[#f3f3eb]/80 to-transparent"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 md:w-[250px] bg-linear-to-l from-[#f3f3eb] via-[#f3f3eb]/80 to-transparent"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 md:w-62.5 bg-linear-to-l from-[#f3f3eb] via-[#f3f3eb]/80 to-transparent"
       />
     </div>
   );
@@ -199,7 +167,8 @@ export default function WallOfLove() {
   return (
     <section className="w-full py-13.5 md:py-16 bg-[#f3f3eb] text-[#20201d]">
       <header className="text-center px-5 mb-9">
-        <p className="m-[0_0_8px] text-[#77776f] text-[10px] font-semibold tracking-[0.12em]">
+        {/* Increased sub-header text from 10px to 12px on mobile */}
+        <p className="m-[0_0_8px] text-[#77776f] text-[12px] md:text-[13px] font-semibold tracking-[0.12em]">
           WALL OF LOVE
         </p>
         <h2 className="m-0 text-[clamp(23px,2.5vw,32px)] tenorClass uppercase leading-[1.2] tracking-[-0.045em] font-semibold">

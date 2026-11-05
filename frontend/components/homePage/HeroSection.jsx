@@ -4,10 +4,7 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Header from "../Header";
 import { isSplashPending } from "@/components/SplashScreen";
-import { setHeroFinalState, playHeroIntro } from "../animations/HeroSectionAni";
-
-// Module-level flag: prevents re-playing the hero intro during SPA route changes (Home -> Gallery -> Home)
-let hasHeroAnimated = false;
+import { heroState, setHeroFinalState, playHeroIntro } from "../animations/homePage/heroAni";
 
 export default function HeroSection() {
   const imageRef = useRef(null);
@@ -30,8 +27,8 @@ export default function HeroSection() {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // Already played in this SPA session, or user prefers reduced motion: show final state
-    if (hasHeroAnimated || reducedMotion) {
-      hasHeroAnimated = true;
+    if (heroState.hasAnimated || reducedMotion) {
+      heroState.hasAnimated = true;
       setHeroFinalState(image, words);
       return;
     }
@@ -39,10 +36,10 @@ export default function HeroSection() {
     let tl;
 
     const startHeroIntro = () => {
-      if (hasHeroAnimated) return;
+      if (heroState.hasAnimated) return;
       
       tl = playHeroIntro(image, words, () => {
-        hasHeroAnimated = true;
+        heroState.hasAnimated = true;
       });
     };
 
@@ -101,7 +98,7 @@ export default function HeroSection() {
           className="relative z-10 w-full h-full flex items-end justify-center pointer-events-none"
           style={{ opacity: 0, willChange: "opacity" }}
         >
-          <div className="relative h-full w-full max-w-[1500px] flex items-end justify-center">
+          <div className="relative h-full w-full max-w-375 flex items-end justify-center">
             <Image
               src="/LandingImage/javed-hero-clean.png"
               alt="Dr. Javed Khan"

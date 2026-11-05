@@ -1,9 +1,9 @@
 "use client";
 import React, { useRef, forwardRef } from "react";
 import Image from "next/image";
-import { useAboutAnimations } from "../animations/homePageAni";
+import { useAboutAnimations } from "../animations/homePage/homeAboutAni";
 
-export default function HeroAbout() {
+export default function HomeAbout() {
   const aboutRef = useRef(null);
   const blueDivRef = useRef(null);
   const amberDivRef = useRef(null);
@@ -16,7 +16,7 @@ export default function HeroAbout() {
       className="hero-about relative flex flex-col md:flex-row justify-between items-center min-h-screen w-full bg-background overflow-hidden"
     >
       {/* flex-1 allows this column to absorb width changes fluidly */}
-      <div className="flex-1 flex flex-col gap-5 md:gap-10 lg:gap-20 tenorClass text-7xl h-full w-full p-5 md:p-10 lg:p-20 mt-10 md:mt-0">
+      <div className="flex-1 flex flex-col gap-5 md:gap-10 lg:gap-10 tenorClass text-7xl h-full w-full p-5 md:p-10 lg:p-20 mt-10 md:mt-0">
         <div className="w-full text-center md:text-left">About</div>
         <Image1 ref={blueDivRef} />
       </div>
@@ -41,7 +41,7 @@ const Overview = forwardRef((props, ref) => {
       </div>
       
       {/* Reduced font sizes on md and lg breakpoints so it doesn't look too long/bulky on iPads */}
-      <div className="flex-1 tenorClass text-base md:text-lg lg:text-xl xl:text-3xl text-black/70 text-center md:text-left px-4 md:px-0">
+      <div className="flex-1 tenorClass text-base md:text-lg lg:text-[18px] xl:text-[25px] text-black/70 text-center md:text-left px-4 md:px-0 leading-7">
         Dr. Javed Khan is passionate about dentistry, both inside and outside
         the clinic. Alongside caring for his patients, he regularly shares his
         knowledge through FM radio, talk shows, and speaking engagements,

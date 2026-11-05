@@ -1,5 +1,10 @@
 import gsap from "gsap";
 
+// Module-level flag: prevents re-playing the hero intro during SPA route changes
+export const heroState = {
+  hasAnimated: false,
+};
+
 /**
  * Instantly applies the final styles (used for reduced motion or subsequent visits)
  */
