@@ -88,11 +88,11 @@ export default function Header() {
           isMenuOpen ? "flex" : "hidden"
         } md:flex flex-col md:flex-row absolute md:static top-full left-0 w-full md:w-auto bg-background md:bg-transparent shadow-lg md:shadow-none p-3 md:p-0 gap-5 md:gap-5 text-[0.8rem] text-foreground items-start md:items-center stackClass font-light z-40`}
       >
-        <AnimatedButton onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
+        <AnimatedButton href="/royaldentalcare" onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
           Royal Dental Care
         </AnimatedButton>
 
-        <AnimatedButton onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
+        <AnimatedButton href="/team" onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
           Our Team
         </AnimatedButton>
 
@@ -100,7 +100,7 @@ export default function Header() {
           Gallery
         </AnimatedLink>
 
-        <AnimatedButton onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
+        <AnimatedButton href="/about"  onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
           About
         </AnimatedButton>
       </nav>
