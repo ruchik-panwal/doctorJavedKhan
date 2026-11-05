@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 
 const IMAGES = [
@@ -25,9 +25,9 @@ const INTERVAL_MS = 3000;
 const GalleryMobileSlider = () => {
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const intervalRef = useRef(null);
 
-  const goTo = useCallback((index: number) => {
+  const goTo = useCallback((index) => {
     if (animating) return;
     setAnimating(true);
     setCurrent(index);
@@ -47,7 +47,7 @@ const GalleryMobileSlider = () => {
   }, [next]);
 
   // Reset timer on manual tap
-  const handleDotClick = (i: number) => {
+  const handleDotClick = (i) => {
     if (intervalRef.current) clearInterval(intervalRef.current);
     goTo(i);
     intervalRef.current = setInterval(() => {
@@ -75,7 +75,7 @@ const GalleryMobileSlider = () => {
         {IMAGES.map((src, i) => (
           <div
             key={src}
-            className="absolute inset-0 transition-opacity duration-[600ms] ease-in-out"
+            className="absolute inset-0 transition-opacity duration-600 ease-in-out"
             style={{ opacity: i === current ? 1 : 0, pointerEvents: i === current ? "auto" : "none" }}
             aria-hidden={i !== current}
           >
@@ -91,7 +91,7 @@ const GalleryMobileSlider = () => {
         ))}
 
         {/* Progress bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/20">
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/20">
           <div
             key={current}
             className="h-full bg-white origin-left"
@@ -111,8 +111,8 @@ const GalleryMobileSlider = () => {
             aria-label={`Go to slide ${i + 1}`}
             className={`rounded-full transition-all duration-300 ${
               i === current
-                ? "w-6 h-[6px] bg-[#0b1b3a]"
-                : "w-[6px] h-[6px] bg-[#0b1b3a]/30"
+                ? "w-6 h-1.5 bg-[#0b1b3a]"
+                : "w-1.5 h-1.5 bg-[#0b1b3a]/30"
             }`}
           />
         ))}

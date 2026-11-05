@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import Image from "next/image";
-import { useGalleryEntrance, useGalleryTransition } from "../animations/galleryAnimation"; // Adjust import path if needed
+import { useGalleryEntrance, useGalleryTransition } from "../animations/galleryPage/galleryAnimation"; // Adjust import path if needed
 
 // ─── 5-Slide Data Sets with Gallery Images ─────────────────────────────────────
 const SLIDES = [
