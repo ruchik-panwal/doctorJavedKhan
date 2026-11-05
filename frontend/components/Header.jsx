@@ -4,12 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import useTextRolloverAni from "./animations/headerBtnAni";
 
-// Extracted Component: Logo
+// Added whitespace-nowrap to prevent text from wrapping and stretching the flex parent
 const Logo = ({ inAnimation, outAnimation, closeMenu }) => (
   <Link
     href="/"
     onClick={closeMenu}
-    className="relative block overflow-hidden tenorClass text-[1.1rem] text-foreground z-50"
+    className="relative block overflow-hidden tenorClass text-[1.1rem] text-foreground z-50 whitespace-nowrap"
   >
     <span className="orig-text block">Javed Khan</span>
     <span className="duplicate-text absolute left-0 top-0 block w-full h-full">
@@ -18,7 +18,6 @@ const Logo = ({ inAnimation, outAnimation, closeMenu }) => (
   </Link>
 );
 
-// Extracted Component: Hamburger Icon
 const Hamburger = ({ isMenuOpen, toggleMenu }) => (
   <button
     className="md:hidden flex flex-col gap-1.5 p-1 z-50 focus:outline-none"
@@ -31,13 +30,12 @@ const Hamburger = ({ isMenuOpen, toggleMenu }) => (
   </button>
 );
 
-// Extracted Component: Animated Navigation Button
 const AnimatedButton = ({ onClick, inAnimation, outAnimation, children }) => (
   <button
     onClick={onClick}
     onMouseEnter={inAnimation}
     onMouseLeave={outAnimation}
-    className="relative block overflow-hidden cursor-pointer w-full text-left md:w-auto"
+    className="relative block overflow-hidden cursor-pointer w-full text-left md:w-auto whitespace-nowrap"
   >
     <span className="orig-text block">{children}</span>
     <span className="duplicate-text absolute left-0 top-0 block w-full h-full">
@@ -46,14 +44,13 @@ const AnimatedButton = ({ onClick, inAnimation, outAnimation, children }) => (
   </button>
 );
 
-// Extracted Component: Animated Navigation Link
 const AnimatedLink = ({ href, onClick, inAnimation, outAnimation, children }) => (
   <Link
     href={href}
     onClick={onClick}
     onMouseEnter={inAnimation}
     onMouseLeave={outAnimation}
-    className="relative block overflow-hidden cursor-pointer w-full text-left md:w-auto"
+    className="relative block overflow-hidden cursor-pointer w-full text-left md:w-auto whitespace-nowrap"
   >
     <span className="orig-text block">{children}</span>
     <span className="duplicate-text absolute left-0 top-0 block w-full h-full">
@@ -62,7 +59,6 @@ const AnimatedLink = ({ href, onClick, inAnimation, outAnimation, children }) =>
   </Link>
 );
 
-// Main Header Component
 export default function Header() {
   const { inAnimation, outAnimation } = useTextRolloverAni();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -71,7 +67,8 @@ export default function Header() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="flex justify-between items-center px-2 md:px-2 w-full bg-background z-50 shrink-0 relative border-b">
+    // Replaced max-w-full with max-w-[100vw] to enforce strict viewport boundaries
+    <header className="flex justify-between items-center px-2 md:px-3 w-full box-border max-w-[100vw] bg-background z-50 shrink-0 relative border-b">
       <Logo 
         inAnimation={inAnimation} 
         outAnimation={outAnimation} 
@@ -86,23 +83,24 @@ export default function Header() {
       <nav
         className={`${
           isMenuOpen ? "flex" : "hidden"
-        } md:flex flex-col md:flex-row absolute md:static top-full left-0 w-full md:w-auto bg-background md:bg-transparent shadow-lg md:shadow-none p-3 md:p-0 gap-5 md:gap-5 text-[0.8rem] text-foreground items-start md:items-center stackClass font-light z-40`}
+        } md:flex flex-col md:flex-row absolute md:static top-full left-0 w-full md:w-auto bg-background md:bg-transparent shadow-lg md:shadow-none p-4 md:p-0 gap-5 text-[0.8rem] text-foreground items-start md:items-center stackClass font-light z-40`}
       >
-        <AnimatedButton href="/royaldentalcare" onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
+        {/* Swapped AnimatedButton for AnimatedLink since these map to URLs */}
+        <AnimatedLink href="/royaldentalcare" onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
           Royal Dental Care
-        </AnimatedButton>
+        </AnimatedLink>
 
-        <AnimatedButton href="/team" onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
+        <AnimatedLink href="/team" onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
           Our Team
-        </AnimatedButton>
+        </AnimatedLink>
 
         <AnimatedLink href="/gallery" onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
           Gallery
         </AnimatedLink>
 
-        <AnimatedButton href="/about"  onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
+        <AnimatedLink href="/about" onClick={closeMenu} inAnimation={inAnimation} outAnimation={outAnimation}>
           About
-        </AnimatedButton>
+        </AnimatedLink>
       </nav>
     </header>
   );
