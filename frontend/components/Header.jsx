@@ -71,7 +71,7 @@ export default function Header() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="flex justify-between items-center px-2 md:px-2 w-full bg-background z-50 shrink-0 relative">
+    <header className="flex justify-between items-center px-2 md:px-2 w-full bg-background z-50 shrink-0 relative border-b">
       <Logo 
         inAnimation={inAnimation} 
         outAnimation={outAnimation} 
