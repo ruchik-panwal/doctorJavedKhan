@@ -1,12 +1,10 @@
 "use client";
+
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { HeaderSpacer } from "../Header";
-import gsap from "gsap";
+import Header from "../Header";
 import { isSplashPending } from "@/components/SplashScreen";
-
-// Module-level flag: prevents re-playing the hero intro during SPA route changes (Home -> Gallery -> Home)
-let hasHeroAnimated = false;
+import { heroState, setHeroFinalState, playHeroIntro } from "../animations/homePage/heroAni";
 
 export default function HeroSection() {
   const imageRef = useRef(null);
@@ -20,7 +18,7 @@ export default function HeroSection() {
     window.scrollTo(0, 0);
   }, []);
 
-  // 2. Sequenced intro: doctor image fades in -> headline words blur-resolve one by one
+  // 2. Sequenced intro
   useEffect(() => {
     const image = imageRef.current;
     const words = wordsRef.current.filter(Boolean);
@@ -29,45 +27,20 @@ export default function HeroSection() {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // Already played in this SPA session, or user prefers reduced motion: show final state
-    if (hasHeroAnimated || reducedMotion) {
-      hasHeroAnimated = true;
-      gsap.set(image, { opacity: 1 });
-      gsap.set(words, { opacity: 1, filter: "blur(0px)" });
+    if (heroState.hasAnimated || reducedMotion) {
+      heroState.hasAnimated = true;
+      setHeroFinalState(image, words);
       return;
     }
 
     let tl;
 
     const startHeroIntro = () => {
-      if (hasHeroAnimated) return;
-
-      tl = gsap.timeline({
-        delay: 0.1,
-        onComplete: () => {
-          hasHeroAnimated = true;
-        },
+      if (heroState.hasAnimated) return;
+      
+      tl = playHeroIntro(image, words, () => {
+        heroState.hasAnimated = true;
       });
-
-      tl
-        // Step 1: Smooth, slow fade-in of the doctor image
-        .fromTo(
-          image,
-          { opacity: 0 },
-          { opacity: 1, duration: 1.4, ease: "power2.out" }
-        )
-        // Step 2: Headline words resolve from blur to sharp, one after another
-        .fromTo(
-          words,
-          { opacity: 0, filter: "blur(14px)" },
-          {
-            opacity: 1,
-            filter: "blur(0px)",
-            duration: 1.6,
-            stagger: 0.5,
-            ease: "power2.out",
-          },
-          "-=0.5"
-        );
     };
 
     if (isSplashPending()) {
@@ -125,7 +98,7 @@ export default function HeroSection() {
           className="relative z-10 w-full h-full flex items-end justify-center pointer-events-none"
           style={{ opacity: 0, willChange: "opacity" }}
         >
-          <div className="relative h-full w-full max-w-[1500px] flex items-end justify-center">
+          <div className="relative h-full w-full max-w-375 flex items-end justify-center">
             <Image
               src="/LandingImage/javed-hero-clean.png"
               alt="Dr. Javed Khan"
@@ -160,7 +133,7 @@ export default function HeroSection() {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   marginRight: index < headlineWords.length - 1 ? "0.22em" : "0",
-                  opacity: 0, // GSAP takes over; kept so nothing flashes before the effect runs
+                  opacity: 0, // GSAP takes over
                   willChange: "filter, opacity",
                 }}
               >

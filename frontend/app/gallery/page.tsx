@@ -1,7 +1,7 @@
 import { HeaderSpacer } from "@/components/Header";
 import CircularText from "@/components/CircularText";
-import GalleryNewSection from "@/components/gallery/GalleryNewSection";
-import GalleryMobileSlider from "@/components/gallery/GalleryMobileSlider";
+import GalleryNewSection from "@/components/galleryPage/GalleryNewSection";
+import GalleryMobileSlider from "@/components/galleryPage/GalleryMobileSlider";
 import SplitText from "@/components/SplitText";
 
 export default function GalleryPage() {
@@ -15,7 +15,7 @@ export default function GalleryPage() {
         {/* @ts-expect-error SplitText is from JavaScript component */}
         <SplitText
           tag="h1"
-          className="font-tenor max-w-[660px] text-[clamp(1.25rem,3.3vw,2.5rem)] leading-[1.3]"
+          className="font-tenor max-w-165 text-[clamp(1.25rem,3.3vw,2.5rem)] leading-[1.3]"
           effect="fade"
           splitType="chars"
           delay={30}
@@ -33,7 +33,7 @@ export default function GalleryPage() {
         <a
           href="#gallery-content"
           aria-label="Scroll down to the gallery"
-          className="absolute bottom-0 translate-y-1 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current"
+          className="absolute bottom-0 translate-y-1 rounded-full focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-current"
         >
           <CircularText
             text="* scroll down * scroll down "

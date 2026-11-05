@@ -250,13 +250,13 @@ const CircularText = ({
       onPointerUp={handleUp}
       onPointerCancel={handleUp}>
       <motion.div
-        className="absolute inset-0 [transform-style:preserve-3d]"
+        className="absolute inset-0 transform-3d"
         style={{ rotateX: tiltX, rotateY: tiltY, scale }}>
         <div
           className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
           style={{ transform: tilt ? `rotateX(${tilt}deg)` : undefined }}>
           <span
-            className="absolute inset-[1.3em] rounded-full border-solid border-current pointer-events-none transition-opacity duration-[400ms]"
+            className="absolute inset-[1.3em] rounded-full border-solid border-current pointer-events-none transition-opacity duration-400"
             style={{
               borderWidth: Math.max(1, fontSize / 16),
               borderColor: ringColor || undefined,

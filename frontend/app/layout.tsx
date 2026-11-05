@@ -3,7 +3,8 @@ import { Tenor_Sans, Stack_Sans_Text } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollToTop from "@/components/animations/ScrollToTop";
-import BackToTop from "@/components/BackToTop";
+import BackToTop from "@/components/BackToTop"; // 1. Import it here
+import ContactIcon from "@/components/ContactIcon"
 import SplashScreen from "@/components/SplashScreen";
 import Header from "@/components/Header";
 import PageTransitionProvider from "@/components/animations/PageTransition";

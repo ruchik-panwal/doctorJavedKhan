@@ -46,29 +46,17 @@ export default function SplashScreen() {
 
   return (
     <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 99999,
-        backgroundColor: "#F3F3EC",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        opacity: fading ? 0 : 1,
-        transition: "opacity 800ms cubic-bezier(0.4, 0, 0.2, 1)",
-        pointerEvents: fading ? "none" : "all",
-        willChange: "opacity",
-      }}
+      className={`fixed inset-0 z-99999 flex items-center justify-center bg-[#F3F3EC] transition-opacity duration-800 ease-in-out ${
+        fading ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
+      }`}
+      style={{ willChange: "opacity" }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/Logo/animated_logo.svg"
         alt="Doctor Javed Khan Logo"
-        style={{
-          width: "min(85vw, 650px)",
-          height: "auto",
-          display: "block",
-        }}
+        // Responsive widths: 85vw on mobile, 60vw on tablets, max 650px on desktop
+        className="w-[85vw] sm:w-[70vw] md:w-[60vw] lg:w-[50vw] max-w-162.5 h-auto block"
         draggable={false}
       />
     </div>

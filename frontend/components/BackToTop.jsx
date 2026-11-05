@@ -57,7 +57,7 @@ export default function BackToTop() {
       onClick={handleScrollToTop}
       // Initialize hidden and pushed down 50px
       style={{ opacity: 0, transform: "translateY(50px)", pointerEvents: "none" }}
-      className="fixed bottom-8 stackClass border border-black right-8 z-50 px-5 py-1 rounded-full flex items-center gap-1 cursor-pointer"
+      className="fixed bottom-8 stackClass border border-black left-8 z-50 px-5 py-1 rounded-full flex items-center gap-1 cursor-pointer"
     >
       Top
       <svg
