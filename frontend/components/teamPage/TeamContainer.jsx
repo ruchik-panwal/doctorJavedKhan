@@ -78,10 +78,9 @@ export default function TeamContainer() {
       {teamData.map((team) => (
         <div
           key={team.role}
-          // Removed bg-amber-400
-          className="w-full min-h-50 flex flex-col md:flex-row items-start justify-between p-5 py-10 gap-5 border-b"
+          // REMOVED h-40 and CHANGED py-10 to py-5
+          className="w-full flex flex-col md:flex-row items-start justify-between p-5 py-5 gap-5 border-b"
         >
-          {/* Removed bg-amber-500 */}
           <div className="font-tenor tracking-[-10%] text-[2rem] w-full md:w-60 shrink-0 leading-7">
             {team.role}
           </div>
@@ -94,21 +93,21 @@ export default function TeamContainer() {
 
 function ImageWrapper({ members }) {
   return (
-    // Removed bg-sky-400
-    <div className="flex-1 min-w-0 grid grid-cols-2 md:grid-cols-3 gap-8">
+    <div className="flex-1 min-w-0 grid grid-cols-2 md:grid-cols-3 gap-y-10">
       {members.map((member) => (
-        <div key={member.name} className="flex flex-col w-full">
+        <div key={member.name} className="flex flex-col w-full items-center">
           <Image
             src={member.image}
             alt={member.name}
             width={500}
             height={500}
-            className="w-full aspect-square object-cover object-center"
+            className="w-40 md:w-100 aspect-square object-cover object-center"
             sizes="(max-width: 768px) 50vw, 33vw"
           />
-          <div className="flex flex-col mt-3 font-tenor tracking-[-5%]">
-            <div className="font-bold text-[1.3rem] leading-tight">{member.name}</div>
-            <div className="text-sm stackClass font-light text-gray-500">{member.qualification}</div>
+          {/* Replaced 'w-full' with 'w-40 md:w-100' to perfectly match the image width */}
+          <div className="flex flex-col mt-3 font-tenor tracking-[-5%] w-40 md:w-100">
+            <div className="font-bold text-[1.3rem] leading-tight text-left">{member.name}</div>
+            <div className="text-sm stackClass font-light text-gray-500 text-left">{member.qualification}</div>
           </div>
         </div>
       ))}
