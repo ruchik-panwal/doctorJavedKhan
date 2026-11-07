@@ -16,9 +16,8 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    // 2. Create the update function
+    // 2. Create the update function for GSAP ticker
     const update = (time: number) => {
-      // DYNAMIC CHECK: Look for the instance inside the loop, not outside
       const lenisInstance = lenisRef.current?.lenis;
       if (lenisInstance) {
         lenisInstance.raf(time * 1000);
@@ -31,9 +30,19 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     // 4. Critical Firefox fix
     gsap.ticker.lagSmoothing(0);
 
-    // 5. Cleanup
+    // 5. Force ScrollTrigger to refresh when the body height changes
+    // This prevents the scroll from getting stuck at the bottom if images load late
+    const resizeObserver = new ResizeObserver(() => {
+      ScrollTrigger.refresh();
+    });
+    
+    // Start observing the body for layout/height shifts
+    resizeObserver.observe(document.body);
+
+    // 6. Cleanup
     return () => {
       gsap.ticker.remove(update);
+      resizeObserver.disconnect(); // Clean up the observer when component unmounts
     };
   }, []);
 
