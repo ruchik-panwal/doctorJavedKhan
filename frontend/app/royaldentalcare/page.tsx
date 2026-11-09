@@ -4,7 +4,7 @@ import Treatement from "@/components/royalDentalPage/Treatement"
 
 export default function RoyalDentalCare() {
   return (
-    <div className="h-screen w-full flex flex-col items-center">
+    <div className=" w-full flex flex-col items-center">
         <Header />
         <Clinic />
         <Treatement />
