@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type NavigateFn = (href: string) => Promise<void> | void;
 let globalNavigate: NavigateFn | null = null;
@@ -51,8 +51,6 @@ export default function PageTransitionProvider({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const isTransitioningRef = useRef(false);
@@ -62,14 +60,6 @@ export default function PageTransitionProvider({
   const [displayChildren, setDisplayChildren] = useState(children);
   const pendingChildrenRef = useRef<React.ReactNode>(children);
   pendingChildrenRef.current = children;
-
-  const currentPathRef = useRef(
-    pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "")
-  );
-  useEffect(() => {
-    currentPathRef.current =
-      pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
-  }, [pathname, searchParams]);
 
   // Execute full-screen wipe transition
   const executeTransition = async (targetUrl: string) => {

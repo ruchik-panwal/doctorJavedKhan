@@ -4,7 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollToTop from "@/components/animations/ScrollToTop";
 import BackToTop from "@/components/BackToTop"; // 1. Import it here
-import ContactIcon from "@/components/ContactIcon"
+import ContactIcon from "@/components/ContactIcon";
 import SplashScreen from "@/components/SplashScreen";
 import Header from "@/components/Header";
 import PageTransitionProvider from "@/components/animations/PageTransition";
@@ -52,7 +52,6 @@ export default function RootLayout({
         {/* Splash screen — fixed overlay, runs animated SVG logo on site entry */}
         <SplashScreen />
         {/* Top Navbar — permanently fixed above all page transitions at z-50 */}
-        <Header />
         <PageTransitionProvider>
           <ScrollToTop />
           <SmoothScroll>{children}</SmoothScroll>

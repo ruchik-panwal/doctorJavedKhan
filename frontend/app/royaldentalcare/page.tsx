@@ -6,7 +6,7 @@ export default function RoyalDentalCare() {
   return (
     <div className="h-screen w-full flex flex-col items-center">
         <Header />
-        <Clinic />
+        <Clinic />  
         <Treatement />
     </div>
   );
