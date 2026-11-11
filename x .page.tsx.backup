@@ -1,0 +1,20 @@
+[1mdiff --git a/frontend/app/royalDentalCare/page.tsx b/frontend/app/royalDentalCare/page.tsx[m
+[1mindex e69de29..9233e3e 100644[m
+[1m--- a/frontend/app/royalDentalCare/page.tsx[m
+[1m+++ b/frontend/app/royalDentalCare/page.tsx[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32mimport Header from "@/components/Header";[m
+[32m+[m[32mimport Clinic from "@/components/royalDentalPage/Clinic"[m
+[32m+[m[32mimport Treatement from "@/components/royalDentalPage/Treatement"[m
+[32m+[m
+[32m+[m[32mexport default function RoyalDentalCare() {[m
+[32m+[m[32m  return ([m
+[32m+[m[32m    <div className="h-screen w-full flex flex-col items-center">[m
+[32m+[m[32m        <Header />[m
+[32m+[m[32m        <Clinic />[m
+[32m+[m[32m        <Treatement />[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m  );[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m

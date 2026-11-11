@@ -52,7 +52,7 @@ export default function RootLayout({
         {/* Splash screen — fixed overlay, runs animated SVG logo on site entry */}
         <SplashScreen />
         {/* Top Navbar — permanently fixed above all page transitions at z-50 */}
-        <Header />
+        {/* <Header /> */}
         <PageTransitionProvider>
           <ScrollToTop />
           <SmoothScroll>{children}</SmoothScroll>
