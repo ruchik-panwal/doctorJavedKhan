@@ -4,7 +4,7 @@ export default function Clinic() {
   return (
     <>
       {/* First Section: Image on Right */}
-      <section className="flex flex-col md:flex-row items-center justify-between bg-[#f4f2ea] px-8 py-16 md:px-24 md:py-32 min-h-[80vh] font-tenor tracking-[-12%] w-85/100">
+      <section className="flex flex-col md:flex-row items-center justify-between px-8 py-16 md:px-24 md:py-32 min-h-[80vh] font-tenor tracking-[-12%] w-85/100">
         
         {/* Left Column: Text Content */}
         <div className="md:w-1/2 flex flex-col justify-center max-w-xl md:pr-10">
@@ -47,7 +47,7 @@ export default function Clinic() {
       </section>
 
       {/* Second Section: Image on Left */}
-      <section className="flex flex-col md:flex-row items-center justify-between bg-[#f4f2ea] px-8 py-16 md:px-24 md:py-32 min-h-screen font-tenor tracking-[-12%] w-85/100">
+      <section className="flex flex-col md:flex-row items-center justify-between px-8 py-16 md:px-24 md:py-32 min-h-screen font-tenor tracking-[-12%] w-85/100">
         
         {/* Left Column: Image */}
         <div className="md:w-1/2 flex justify-center md:justify-start mb-5 md:mb-0 md:pr-10 w-full order-last md:order-first">
