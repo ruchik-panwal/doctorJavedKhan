@@ -6,7 +6,6 @@ import Treatement from "@/components/royalDentalPage/Treatement"
 export default function RoyalDentalCare() {
   return (
     <div className=" w-full flex flex-col items-center">
-        <Header />
         <DentalHero />
         <Clinic />
         <Treatement />

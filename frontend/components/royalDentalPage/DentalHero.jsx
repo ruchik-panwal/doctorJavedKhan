@@ -1,26 +1,29 @@
-import ScrollExpand from "./ScrollExpand"; // Adjust the import path as per your setup
+import ScrollExpand from "./ScrollExpand";
+import Header from "../Header";
 
-export default function HeroSection() {
+export default function DentalHero() {
   return (
-    // A tall container is required so there's enough space to scroll and trigger the expansion
-    <div className="h-[100vh] bg-neutral-900 w-full relative">
-      
+    <div className="bg-neutral-900 w-full relative">
       <ScrollExpand
-        src="https://images.unsplash.com/photo-1682687220742-aba13b6e50ba" // Replace with your image/video URL
-        mediaType="image" // Change to "video" if using a video source
+        src="https://images.unsplash.com/photo-1682687220742-aba13b6e50ba"
+        mediaType="image"
         startWidth={26}
         startHeight={43}
         startRadius={0}
         smoothing={0.09}
+        useWindowScroll={true}
+        title="Modern Dental Care" 
+        header={<Header />} // <-- Pass the header here
       >
-        {/* Children fade in automatically once the media reaches full screen */}
-        <div className="flex items-center justify-center h-full w-full">
-          <h1 className="text-white text-5xl font-bold">
+        <div className="flex flex-col items-center justify-center h-full w-full">
+          <h1 className="text-white text-5xl font-bold drop-shadow-lg">
             Full Bleed Content
           </h1>
+          <p className="text-white/80 mt-4 text-xl">
+            This appears when scrolling is complete.
+          </p>
         </div>
       </ScrollExpand>
-
     </div>
   );
 }
