@@ -46,7 +46,7 @@ export default function QuoteSection() {
       <Header />
       <section
         ref={sectionRef}
-        className="flex h-[70vh] w-full items-center justify-center bg-background px-6 text-center text-foreground sm:px-10"
+        className="flex md:h-[70vh] h-[40vh] w-full items-center justify-center bg-background px-6 text-center text-foreground sm:px-10"
       >
         <blockquote
           ref={quoteRef}
