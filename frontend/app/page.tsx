@@ -7,10 +7,11 @@ import WallOfLove from "@/components/homePage/testimonial";
 export default function Home() {
   return (
     <main>
-      <HeroSection />
+
+      <QuoteSection />
+      {/* <HeroSection /> */}
       <HomeAbout />
       {/* <StatsSection /> */}
-      <QuoteSection />
       <FeaturesSection />
       <WallOfLove />
     </main>
