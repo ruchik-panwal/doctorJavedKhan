@@ -92,7 +92,7 @@ export default function Header() {
       <nav
         className={`${
           isMenuOpen ? "flex" : "hidden"
-        } md:flex flex-col md:flex-row absolute md:static top-full left-0 w-full md:w-auto bg-background md:bg-transparent shadow-lg md:shadow-none p-4 md:p-0 gap-5 text-[1.2rem] text-foreground items-start md:items-center stackClass font-light z-40`}
+        } md:flex flex-col md:flex-row absolute md:static top-full left-0 w-full md:w-auto bg-background md:bg-transparent shadow-lg md:shadow-none p-4 md:p-0 gap-5 text-[1.2rem] text-black items-start md:items-center stackClass font-light z-40`}
       >
         {/* Swapped AnimatedButton for AnimatedLink since these map to URLs */}
         <AnimatedLink
