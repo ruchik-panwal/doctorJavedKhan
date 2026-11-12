@@ -190,7 +190,7 @@ const ScrollExpand = ({
     mediaType === 'video' ? (
       <video
         ref={mediaRef}
-        className="absolute inset-0 w-full h-full object-cover origin-center select-none [will-change:transform]"
+        className="absolute inset-0 w-full h-full object-cover origin-center select-none will-change-transform"
         src={src}
         poster={poster}
         autoPlay
@@ -201,7 +201,7 @@ const ScrollExpand = ({
     ) : (
       <img
         ref={mediaRef}
-        className="absolute inset-0 w-full h-full object-cover origin-center select-none [will-change:transform]"
+        className="absolute inset-0 w-full h-full object-cover origin-center select-none will-change-transform"
         src={src}
         alt={alt}
         draggable={false}
@@ -211,7 +211,7 @@ const ScrollExpand = ({
   return (
     <div
       ref={rootRef}
-      className={`relative w-full h-full ${useWindowScroll ? '' : 'overflow-y-auto overflow-x-hidden overscroll-contain [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'} ${className}`.trim()}
+      className={`relative w-full h-full ${useWindowScroll ? '' : 'overflow-y-auto overflow-x-hidden overscroll-contain scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'} ${className}`.trim()}
       style={style}
       {...rest}
     >
@@ -230,7 +230,7 @@ const ScrollExpand = ({
           <div className="relative w-full flex-1 overflow-hidden">
             <div
               ref={frameRef}
-              className="absolute inset-0 [clip-path:inset(21%_29%_21%_29%_round_24px)] [will-change:clip-path]"
+              className="absolute inset-0 [clip-path:inset(21%_29%_21%_29%_round_24px)] will-change-[clip-path]"
             >
               {media}
               <div
@@ -240,7 +240,7 @@ const ScrollExpand = ({
               {children ? (
                 <div
                   ref={overlayRef}
-                  className="absolute inset-0 flex flex-col items-center justify-center text-center p-[6%] opacity-0 [will-change:opacity,transform]"
+                  className="absolute inset-0 flex flex-col items-center justify-center text-center p-[6%] opacity-0 will-change-[opacity,transform]"
                 >
                   {children}
                 </div>
@@ -249,7 +249,7 @@ const ScrollExpand = ({
             {title ? (
               <div
                 ref={titleRef}
-                className="absolute inset-0 flex items-center justify-center m-0 px-[6%] text-center font-bold leading-none tracking-[-0.03em] text-white [font-size:var(--se-title-size)] [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] pointer-events-none [will-change:opacity,transform]"
+                className="absolute inset-0 flex items-center justify-center m-0 px-[6%] text-center font-bold leading-none tracking-[-0.03em] text-white [font-size:var(--se-title-size)] [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] pointer-events-none will-change-[opacity,transform]"
               >
                 {title}
               </div>
@@ -257,7 +257,7 @@ const ScrollExpand = ({
             {scrollHint ? (
               <div
                 ref={hintRef}
-                className="absolute inset-x-0 bottom-5 text-center text-[0.8125rem] tracking-[0.02em] text-white/55 pointer-events-none [will-change:opacity,transform]"
+                className="absolute inset-x-0 bottom-5 text-center text-[0.8125rem] tracking-[0.02em] text-white/55 pointer-events-none will-change-[opacity,transform]"
               >
                 {scrollHint}
               </div>
