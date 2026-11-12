@@ -56,7 +56,7 @@ export default function SplashScreen() {
         src="/Logo/animated_logo.svg"
         alt="Doctor Javed Khan Logo"
         // Responsive widths and desktop cap increased by another 10%
-        className="w-[112.2vw] sm:w-[92.4vw] md:w-[79.2vw] lg:w-[66vw] max-w-[858px] h-auto block"
+        className="w-[112.2vw] sm:w-[92.4vw] md:w-[79.2vw] lg:w-[66vw] max-w-214.5 h-auto block"
         draggable={false}
       />
     </div>

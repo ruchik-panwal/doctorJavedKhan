@@ -46,7 +46,7 @@ export default function QuoteSection() {
     >
       <blockquote
         ref={quoteRef}
-        className="m-0 max-w-3xl font-tenor text-[clamp(1.8rem,4.8vw,3rem)] leading-[1.25] tracking-tight"
+        className="m-0 max-w-3xl font-tenor text-[clamp(1.8rem,4.8vw,3rem)] leading-tight tracking-tight"
       >
         “You&apos;re <strong className="font-semibold">braver</strong> than you
         believe, and stronger than you seem, and smarter than you{" "}

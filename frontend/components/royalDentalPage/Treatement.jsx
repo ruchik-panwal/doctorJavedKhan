@@ -111,7 +111,7 @@ function ImageHolder({ src }) {
         Added scaled max-width constraints (350px on mobile, 450px on small tablets, full width on desktop) 
         so the aspect-square scales perfectly without blowing out the screen.
       */}
-      <div className="relative w-full max-w-[350px] sm:max-w-[450px] md:max-w-full aspect-square overflow-hidden">
+      <div className="relative w-full max-w-87.5 sm:max-w-112.5 md:max-w-full aspect-square overflow-hidden">
         <Image
           src={src}
           alt="Dental Treatment"

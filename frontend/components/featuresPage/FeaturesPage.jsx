@@ -123,7 +123,7 @@ function FeatureItem({ item, index }) {
       <div className="flex flex-col items-start gap-4 md:flex-row md:items-start md:gap-[1.6vw]">
 
         {/* ── Image block (image + location label below) ──────── */}
-        <div className={`w-full ${imageSizeClass} flex-shrink-0 min-w-0`}>
+        <div className={`w-full ${imageSizeClass} shrink-0 min-w-0`}>
           {/* Image wrapper — grey bg shows if image is missing */}
           <div className="relative w-full overflow-hidden bg-[#D9D9D9]">
             <Image
@@ -267,7 +267,7 @@ export default function FeaturesPage() {
           HEADING — top left, two lines each with blue underline
           ════════════════════════════════════════════════════════ */}
       <div className="pt-16 md:pt-24">
-        <h1 className="tenorClass m-0 leading-[1.0] tracking-[-0.03em] text-[clamp(2.5rem,6vw,5rem)] font-light">
+        <h1 className="tenorClass m-0 leading-none tracking-[-0.03em] text-[clamp(2.5rem,6vw,5rem)] font-light">
           {HEADING_LINES.map((line) => (
             <span key={line} className="block">
               <span

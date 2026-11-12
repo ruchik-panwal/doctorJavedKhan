@@ -26,8 +26,8 @@ export default function FeaturesSection() {
       </div>
 
       <div className="flex items-center justify-center px-6 pb-12 sm:px-10 md:justify-end md:py-10 md:pr-[5.7vw] md:pl-0">
-        <figure className="m-0 w-full max-w-[42rem]">
-          <div className="relative aspect-[5/3] w-full overflow-hidden rounded-xl">
+        <figure className="m-0 w-full max-w-2xl">
+          <div className="relative aspect-5/3 w-full overflow-hidden rounded-xl">
             <Image
               src="/features/radio-city-interview.jpg"
               alt="Dr. Javed Khan speaking about dentistry on Radio City 91.1 FM"
