@@ -2,10 +2,10 @@
 
 import React from "react";
 import Image from "next/image";
-import { testimonialsAni } from "../animations/homePage/testimonialsAni"; // Adjust the import path as needed
+import { useTestimonialsAni } from "../animations/homePage/useTestimonialsAni"; // Adjust the import path as needed
 
 const topTestimonials = [
-  {
+  { 
     id: 1,
     name: "Pasquale Vitiello",
     handle: "@pasqualevitiello",
@@ -91,7 +91,7 @@ function TestimonialCard({ testimonial }) {
   return (
     <article className="w-81.25 md:w-97.5 flex-none border border-[#b8b8af] rounded-xl p-4 md:p-5 bg-transparent flex flex-col justify-between min-h-70 md:min-h-70">
       {/* Increased mobile text from 9px to 14px, and desktop to 15px */}
-      <p className="m-[0_0_18px] font-stack text-[14px] md:text-[15px] leading-[1.55] md:leading-[1.6] font-light wrap-words">
+      <p className="m-[0_0_18px] font-stack text-[10px] md:text-[10px] leading-[1.55] md:leading-[1.6] font-light wrap-words">
         {testimonial.text}
       </p>
 
@@ -126,38 +126,42 @@ function TestimonialCard({ testimonial }) {
   );
 }
 
+// Each set repeats the cards so one set is always wider than the screen.
+// 3 copies ≈ 4,800px on desktop, which covers up to 4K. Increase if you add ultra-wide support.
+const COPIES_PER_SET = 3;
+
 function MarqueeRow({ testimonials, direction }) {
-  const trackRef = testimonialsAni(direction);
+  const trackRef = useTestimonialsAni(direction);
+
+  const renderSet = (prefix) =>
+    Array.from({ length: COPIES_PER_SET }).flatMap((_, copy) =>
+      testimonials.map((testimonial) => (
+        <TestimonialCard
+          key={`${prefix}-${copy}-${testimonial.id}`}
+          testimonial={testimonial}
+        />
+      )),
+    );
 
   return (
     <div className="relative w-full overflow-hidden">
       <div ref={trackRef} className="mb-1 flex w-max will-change-transform">
         <div data-marquee-set className="flex gap-4 pr-4">
-          {testimonials.map((testimonial) => (
-            <TestimonialCard
-              key={`original-${testimonial.id}`}
-              testimonial={testimonial}
-            />
-          ))}
+          {renderSet("a")}
         </div>
 
-        <div className="flex gap-4 pr-4">
-          {testimonials.map((testimonial) => (
-            <TestimonialCard
-              key={`clone-${testimonial.id}`}
-              testimonial={testimonial}
-            />
-          ))}
+        <div aria-hidden="true" className="flex gap-4 pr-4">
+          {renderSet("b")}
         </div>
       </div>
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 md:w-62.5 bg-linear-to-r from-[#f3f3eb] via-[#f3f3eb]/80 to-transparent"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 md:w-62.5 bg-linear-to-r from-background via-background/80 to-transparent"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 md:w-62.5 bg-linear-to-l from-[#f3f3eb] via-[#f3f3eb]/80 to-transparent"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 md:w-62.5 bg-linear-to-l from-background via-background/80 to-transparent"
       />
     </div>
   );
@@ -165,7 +169,7 @@ function MarqueeRow({ testimonials, direction }) {
 
 export default function WallOfLove() {
   return (
-    <section className="w-full py-13.5 md:py-16 bg-[#f3f3eb] text-[#20201d]">
+    <section className="w-full py-13.5 md:py-16 bg-background text-[#20201d]">
       <header className="text-center px-5 mb-9">
         {/* Increased sub-header text from 10px to 12px on mobile */}
         <p className="m-[0_0_8px] text-[#77776f] text-[12px] md:text-[13px] font-semibold tracking-[0.12em]">

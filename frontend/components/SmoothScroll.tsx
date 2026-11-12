@@ -1,11 +1,7 @@
 "use client";
 
-import { ReactLenis, useLenis } from "lenis/react";
-import { ReactNode, useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { ReactLenis } from "lenis/react";
+import { ReactNode } from "react";
 
 export default function SmoothScroll({ children }: { children: ReactNode }) {
   const lenisRef = useRef<any>(null);
@@ -47,13 +43,8 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <ReactLenis 
-      ref={lenisRef} 
-      autoRaf={false} 
-      root 
-      options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}
-    >
+    <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
       {children}
     </ReactLenis>
-  );
+  )
 }

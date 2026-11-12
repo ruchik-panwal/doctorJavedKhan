@@ -6,8 +6,8 @@ import SplitText from "@/components/SplitText";
 
 export default function GalleryPage() {
   return (
-    <main className="flex min-h-svh flex-col">
-      {/* ── Fixed Header sits above everything ── */}
+    <main className="bg-background text-foreground">
+      {/* ── Fixed Header sits above in layout, spacer maintains scroll clearance ── */}
       <Header />
 
       {/* ── Hero / Intro ── full-viewport below header ── */}

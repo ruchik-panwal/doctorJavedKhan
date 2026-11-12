@@ -1,6 +1,7 @@
 import HeroSection from "@/components/homePage/HeroSection";
 import HomeAbout from "@/components/homePage/HomeAbout";
-import StatsSection from "@/components/homePage/StatsSection";
+import QuoteSection from "@/components/homePage/QuoteSection";
+import FeaturesSection from "@/components/homePage/FeaturesSection";
 import WallOfLove from "@/components/homePage/testimonial";
 
 export default function Home() {
@@ -8,7 +9,9 @@ export default function Home() {
     <main>
       <HeroSection />
       <HomeAbout />
-      <StatsSection />
+      {/* <StatsSection /> */}
+      <QuoteSection />
+      <FeaturesSection />
       <WallOfLove />
     </main>
   );

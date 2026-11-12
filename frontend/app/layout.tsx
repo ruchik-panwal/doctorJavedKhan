@@ -4,8 +4,10 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollToTop from "@/components/animations/ScrollToTop";
 import BackToTop from "@/components/BackToTop"; // 1. Import it here
-import ContactIcon from "@/components/ContactIcon"
+import ContactIcon from "@/components/ContactIcon";
 import SplashScreen from "@/components/SplashScreen";
+import Header from "@/components/Header";
+import PageTransitionProvider from "@/components/animations/PageTransition";
 
 const tenorSans = Tenor_Sans({
   variable: "--font-tenor-sans",
@@ -46,15 +48,15 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         {/* Splash screen — fixed overlay, runs animated SVG logo on site entry */}
         <SplashScreen />
-        <ScrollToTop />
-        <SmoothScroll>{children}</SmoothScroll>
-
-        {/* 2. Place it globally so it sits on top of all pages */}
-        <BackToTop />
-        <BackToTop />
+        {/* Top Navbar — permanently fixed above all page transitions at z-50 */}
+        <PageTransitionProvider>
+          <ScrollToTop />
+          <SmoothScroll>{children}</SmoothScroll>
+          <BackToTop />
+        </PageTransitionProvider>
       </body>
     </html>
   );

@@ -4,7 +4,11 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Header from "../Header";
 import { isSplashPending } from "@/components/SplashScreen";
-import { heroState, setHeroFinalState, playHeroIntro } from "../animations/homePage/heroAni";
+import {
+  heroState,
+  setHeroFinalState,
+  playHeroIntro,
+} from "../animations/homePage/heroAni";
 
 export default function HeroSection() {
   const imageRef = useRef(null);
@@ -24,7 +28,9 @@ export default function HeroSection() {
     const words = wordsRef.current.filter(Boolean);
     if (!image || words.length === 0) return;
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     // Already played in this SPA session, or user prefers reduced motion: show final state
     if (heroState.hasAnimated || reducedMotion) {
@@ -37,7 +43,7 @@ export default function HeroSection() {
 
     const startHeroIntro = () => {
       if (heroState.hasAnimated) return;
-      
+
       tl = playHeroIntro(image, words, () => {
         heroState.hasAnimated = true;
       });
@@ -45,7 +51,9 @@ export default function HeroSection() {
 
     if (isSplashPending()) {
       // Splash screen is playing: wait until its fade begins
-      window.addEventListener("splashFadeStart", startHeroIntro, { once: true });
+      window.addEventListener("splashFadeStart", startHeroIntro, {
+        once: true,
+      });
 
       // Safety timeout: reveal hero if splash event doesn't fire within 4s
       const fallbackTimer = setTimeout(startHeroIntro, 4000);
@@ -115,7 +123,8 @@ export default function HeroSection() {
           <h1
             className="tenorClass text-center whitespace-nowrap select-none font-bold"
             style={{
-              fontFamily: "'Tenor Sans', var(--font-tenor-sans), Georgia, serif",
+              fontFamily:
+                "'Tenor Sans', var(--font-tenor-sans), Georgia, serif",
               fontSize: "clamp(3.5rem, 10.4vw, 12.2rem)",
               letterSpacing: "-0.05em",
               lineHeight: 0.88,
@@ -132,7 +141,8 @@ export default function HeroSection() {
                     "linear-gradient(180deg, #FFFFFF 0%, #EAEAEF 52%, #B2B2BA 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
-                  marginRight: index < headlineWords.length - 1 ? "0.22em" : "0",
+                  marginRight:
+                    index < headlineWords.length - 1 ? "0.22em" : "0",
                   opacity: 0, // GSAP takes over
                   willChange: "filter, opacity",
                 }}
