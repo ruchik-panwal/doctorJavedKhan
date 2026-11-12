@@ -13,11 +13,11 @@ export default function HomeAbout() {
   return (
     <section
       ref={aboutRef}
-      className="hero-about relative flex flex-col md:flex-row justify-between items-center min-h-screen w-full bg-background overflow-hidden"
+      className="hero-about md:px-20 relative flex flex-col md:flex-row justify-between items-center min-h-screen w-full bg-background overflow-hidden"
     >
       {/* flex-1 allows this column to absorb width changes fluidly */}
-      <div className="flex-1 flex flex-col gap-5 md:gap-10 lg:gap-10 tenorClass text-7xl h-full w-full p-5 md:p-10 lg:p-20 mt-10 md:mt-0">
-        <div className="w-full text-center md:text-left">About</div>
+      <div className="flex-1 flex flex-col gap-5 h-full w-full p-5 md:p-10 lg:p-20 mt-10 md:mt-0">
+        <div className="w-full text-center md:text-left font-tenor tracking-[-8%] text-7xl">About</div>
         <Image1 ref={blueDivRef} />
       </div>
 
@@ -58,7 +58,7 @@ const Image1 = forwardRef((props, ref) => {
     <div
       ref={ref}
       // Removed fixed w-150/h-190. Pure aspect ratio ensures buttery-smooth resizing.
-      className="relative w-full lg:w-[90%] aspect-4/5 transform-gpu overflow-hidden mx-auto md:mx-0"
+      className="relative w-full lg:w-[70%] aspect-4/5 transform-gpu overflow-hidden mx-auto md:mx-0"
     >
       <Image
         src="/LandingImage/javed2.jpg"
