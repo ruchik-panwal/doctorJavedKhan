@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
+import Header from "../Header";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function QuoteSection() {
@@ -40,18 +42,21 @@ export default function QuoteSection() {
   );
 
   return (
-    <section
-      ref={sectionRef}
-      className="flex min-h-svh w-full items-center justify-center bg-background px-6 text-center text-foreground sm:px-10"
-    >
-      <blockquote
-        ref={quoteRef}
-        className="m-0 max-w-3xl font-tenor text-[clamp(1.8rem,4.8vw,3rem)] leading-tight tracking-tight"
+    <div className="h-full w-full flex flex-col">
+      <Header />
+      <section
+        ref={sectionRef}
+        className="flex h-[70vh] w-full items-center justify-center bg-background px-6 text-center text-foreground sm:px-10"
       >
-        “You&apos;re <strong className="font-semibold">braver</strong> than you
-        believe, and stronger than you seem, and smarter than you{" "}
-        <strong className="font-semibold">think.</strong>”
-      </blockquote>
-    </section>
+        <blockquote
+          ref={quoteRef}
+          className="m-0 max-w-3xl font-tenor text-[clamp(1.8rem,4.8vw,3rem)] leading-tight tracking-tight"
+        >
+          “You&apos;re <strong className="font-semibold">braver</strong> than
+          you believe, and stronger than you seem, and smarter than you{" "}
+          <strong className="font-semibold">think.</strong>”
+        </blockquote>
+      </section>
+    </div>
   );
 }
