@@ -1,6 +1,6 @@
-import type { NextConfig } from "next";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: false, // <-- This is what stops the double render
   images: {
     remotePatterns: [
       {
@@ -13,5 +13,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
 export default nextConfig;

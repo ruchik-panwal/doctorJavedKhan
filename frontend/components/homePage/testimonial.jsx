@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import { useTestimonialsAni } from "../animations/homePage/useTestimonialsAni"; // Adjust the import path as needed
 
@@ -126,8 +125,6 @@ function TestimonialCard({ testimonial }) {
   );
 }
 
-// Each set repeats the cards so one set is always wider than the screen.
-// 3 copies ≈ 4,800px on desktop, which covers up to 4K. Increase if you add ultra-wide support.
 const COPIES_PER_SET = 3;
 
 function MarqueeRow({ testimonials, direction }) {
@@ -168,6 +165,8 @@ function MarqueeRow({ testimonials, direction }) {
 }
 
 export default function WallOfLove() {
+  console.log("hmm");
+  
   return (
     <section className="w-full py-13.5 md:py-16 bg-background text-[#20201d]">
       <header className="text-center px-5 mb-9">
